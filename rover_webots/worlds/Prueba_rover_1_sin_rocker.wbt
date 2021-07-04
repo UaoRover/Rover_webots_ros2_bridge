@@ -1,0 +1,570 @@
+#VRML_SIM R2021a utf8
+WorldInfo {
+  basicTimeStep 16
+  coordinateSystem "NUE"
+}
+Viewpoint {
+  orientation -0.3894457811420714 -0.9119470632558552 -0.12916863926535319 1.1315922490686416
+  position -4.008462207574101 3.0537684874440214 -1.4035185325541313
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+UnevenTerrain {
+  translation 0 -1.49 0
+}
+RectangleArena {
+  translation -1.32 0 -2.45
+  floorSize 10 10
+  floorTileSize 1 1
+  wallHeight 1
+}
+Solid {
+  translation 0.000252055 2.72 0.161723
+  children [
+    Shape {
+      appearance Appearance {
+        texture ImageTexture {
+          url [
+            "/home/alejoxbg/Pictures/Screenshot from 2021-06-27 11-54-09.png"
+          ]
+        }
+      }
+      geometry Box {
+        size 0.5 0.5 0.5
+      }
+    }
+  ]
+}
+DEF Rover Robot {
+  translation -2.24 2.33 -2.22
+  children [
+    Camera {
+      translation -0.39 0.11 -4.77598e-17
+      rotation 0 -1 0 -1.5707953071795862
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 1 0 0
+          }
+          geometry Box {
+            size 0.02 0.02 0.02
+          }
+        }
+      ]
+      width 1920
+      height 1080
+      far 2
+    }
+    Solid {
+      translation 0 0 0.33
+      children [
+        DEF Rocker-Boogie-left Group {
+          children [
+            Transform {
+              translation 0.11 -0.068 0
+              rotation 0 0 1 1.0471996938995747
+              children [
+                Shape {
+                  appearance BrushedAluminium {
+                  }
+                  geometry Cylinder {
+                    height 0.3
+                    radius 0.03
+                  }
+                }
+              ]
+            }
+            Transform {
+              translation -0.26 -0.13 0
+              rotation 0 0 1 -1.1
+              children [
+                Shape {
+                  appearance BrushedAluminium {
+                  }
+                  geometry Cylinder {
+                    height 0.6
+                    radius 0.03
+                  }
+                }
+              ]
+            }
+          ]
+        }
+        DEF boogie_left HingeJoint {
+          jointParameters DEF boogie_left HingeJointParameters {
+            axis 0 0 1
+            anchor 0.22 -0.133 0.33
+            maxStop 1
+          }
+          device [
+            DEF boogie_left PositionSensor {
+              name "left_joint_boggie"
+            }
+          ]
+          endPoint DEF boogie_left Solid {
+            translation 0.22 -0.133 6.661338147750939e-16
+            rotation 0 0 1 0
+            children [
+              DEF middle_wheel_left_boggie HingeJoint {
+                jointParameters HingeJointParameters {
+                  axis 0 0 1
+                  anchor -0.17 -0.227587 0.0516
+                }
+                device [
+                  RotationalMotor {
+                    name "middle_wheel_left"
+                  }
+                ]
+                endPoint Solid {
+                  translation -0.17041051839981802 -0.2275872205552426 0.05160000000000002
+                  rotation 0.9990323316930704 -0.03109989345025807 -0.031099788733837536 1.5717678305469123
+                  children [
+                    DEF wheel Shape {
+                      appearance GenericTireAppearance {
+                      }
+                      geometry Cylinder {
+                        height 0.05
+                        radius 0.12
+                      }
+                    }
+                  ]
+                  name "solid(1)"
+                  boundingObject USE wheel
+                  physics Physics {
+                  }
+                }
+              }
+              DEF directional_left_boggie HingeJoint {
+                jointParameters DEF left_boggie_directional HingeJointParameters {
+                  axis 0 1 0
+                  anchor 0.25 -0.16 0
+                }
+                device [
+                  RotationalMotor {
+                    name "left_boggie_directional"
+                    maxTorque 1000000
+                  }
+                ]
+                endPoint Solid {
+                  translation 0.25 -0.16 0
+                  children [
+                    DEF boggie_left_wheel HingeJoint {
+                      jointParameters HingeJointParameters {
+                        axis 0 0 1
+                        anchor 0 -0.0673 0.0517
+                      }
+                      device [
+                        RotationalMotor {
+                          name "wheel_boggie_left"
+                          maxTorque 100
+                        }
+                      ]
+                      endPoint Solid {
+                        translation 5.468444707473763e-18 -0.0673188 0.0516547
+                        rotation 1 7.850446673771488e-17 0 1.5708003061004252
+                        children [
+                          Shape {
+                            appearance GenericTireAppearance {
+                            }
+                            geometry DEF rueda Cylinder {
+                              height 0.05
+                              radius 0.12
+                            }
+                          }
+                        ]
+                        boundingObject USE rueda
+                        physics Physics {
+                        }
+                      }
+                    }
+                    DEF boggie_directional_left Shape {
+                      appearance BrushedSteel {
+                      }
+                      geometry Box {
+                        size 0.05 0.1 0.05
+                      }
+                    }
+                  ]
+                  boundingObject USE boggie_directional_left
+                  physics Physics {
+                  }
+                }
+              }
+              DEF Boggie Group {
+                children [
+                  Transform {
+                    translation -0.17 -0.16 0
+                    children [
+                      Shape {
+                        appearance BrushedSteel {
+                        }
+                        geometry Box {
+                          size 0.05 0.1 0.05
+                        }
+                      }
+                    ]
+                  }
+                  Transform {
+                    translation 0.116767 -0.0652523 0
+                    rotation 0 0 1 1.1
+                    children [
+                      Shape {
+                        appearance BrushedAluminium {
+                        }
+                        geometry Cylinder {
+                          height 0.3
+                          radius 0.03
+                        }
+                      }
+                    ]
+                  }
+                  Transform {
+                    translation -0.084 -0.061 0
+                    rotation 0 0 1 -0.9162996938995747
+                    children [
+                      Shape {
+                        appearance BrushedAluminium {
+                        }
+                        geometry Cylinder {
+                          height 0.25
+                          radius 0.03
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+            name "solid(1)"
+            boundingObject USE Boggie
+            physics Physics {
+            }
+          }
+        }
+        DEF directional_left_rocker HingeJoint {
+          jointParameters DEF left_rocker_directional HingeJointParameters {
+            axis 0 1 0
+            anchor -0.52 -0.283 0
+          }
+          device [
+            RotationalMotor {
+              name "left_rocker_directional"
+              maxTorque 1000000
+            }
+          ]
+          endPoint Solid {
+            translation -0.52 -0.293 0
+            children [
+              DEF rocker_left_wheel HingeJoint {
+                jointParameters HingeJointParameters {
+                  axis 0 0 1
+                  anchor 0 -0.0673 0.0517
+                }
+                device [
+                  RotationalMotor {
+                    name "wheel_rocker_left"
+                    maxTorque 100
+                  }
+                ]
+                endPoint Solid {
+                  translation 8.961608581950498e-19 -0.0673188 0.0516547
+                  rotation 1 7.850446673771493e-17 -2.3551340021314483e-16 1.5708003061004239
+                  children [
+                    Shape {
+                      appearance GenericTireAppearance {
+                      }
+                      geometry DEF rueda Cylinder {
+                        height 0.05
+                        radius 0.12
+                      }
+                    }
+                  ]
+                  boundingObject USE rueda
+                  physics Physics {
+                  }
+                }
+              }
+              DEF rocker_directional_left Shape {
+                appearance BrushedSteel {
+                }
+                geometry Box {
+                  size 0.05 0.1 0.05
+                }
+              }
+            ]
+            boundingObject USE rocker_directional_left
+            physics Physics {
+            }
+          }
+        }
+      ]
+      name "solid(2)"
+      boundingObject USE Rocker-Boogie-left
+      physics Physics {
+      }
+    }
+    Solid {
+      translation 0 0 -0.33
+      children [
+        DEF Rocker-Boogie-left Group {
+          children [
+            Transform {
+              translation 0.11 -0.068 0
+              rotation 0 0 1 1.0471996938995747
+              children [
+                Shape {
+                  appearance BrushedAluminium {
+                  }
+                  geometry Cylinder {
+                    height 0.3
+                    radius 0.03
+                  }
+                }
+              ]
+            }
+            Transform {
+              translation -0.26 -0.13 0
+              rotation 0 0 1 -1.1
+              children [
+                Shape {
+                  appearance BrushedAluminium {
+                  }
+                  geometry Cylinder {
+                    height 0.6
+                    radius 0.03
+                  }
+                }
+              ]
+            }
+          ]
+        }
+        DEF boogie_der HingeJoint {
+          jointParameters DEF boogie_der HingeJointParameters {
+            axis 0 0 1
+            anchor 0.22 -0.133 0
+            maxStop 1
+          }
+          device [
+            DEF boogie_der PositionSensor {
+              name "der_joint_boggie"
+            }
+          ]
+          endPoint DEF boogie_left Solid {
+            translation 0.22 -0.133 0
+            rotation 0 0 1 0
+            children [
+              DEF middle_wheel_der_boggie HingeJoint {
+                jointParameters HingeJointParameters {
+                  axis 0 0 1
+                  anchor -0.17 -0.228 -0.0484
+                }
+                device [
+                  RotationalMotor {
+                    name "middle_wheel_der"
+                  }
+                ]
+                endPoint Solid {
+                  translation -0.170411 -0.22758699999999998 -0.0484
+                  rotation 0.9990323316930705 -0.031099893450257907 -0.03109978873383703 1.5717678305469123
+                  children [
+                    DEF wheel Shape {
+                      appearance GenericTireAppearance {
+                      }
+                      geometry Cylinder {
+                        height 0.05
+                        radius 0.12
+                      }
+                    }
+                  ]
+                  name "solid(1)"
+                  boundingObject USE wheel
+                  physics Physics {
+                  }
+                }
+              }
+              DEF directional_der_boggie HingeJoint {
+                jointParameters DEF der_boggie_directional HingeJointParameters {
+                  axis 0 1 0
+                  anchor 0.25 -0.16 0
+                }
+                device [
+                  RotationalMotor {
+                    name "der_boggie_directional"
+                    maxTorque 1000000
+                  }
+                ]
+                endPoint Solid {
+                  translation 0.25 -0.16 0
+                  children [
+                    DEF boggie_left_wheel HingeJoint {
+                      jointParameters HingeJointParameters {
+                        axis 0 0 1
+                        anchor 0 -0.0673 0.0517
+                      }
+                      device [
+                        RotationalMotor {
+                          name "wheel_boggie_der"
+                          maxTorque 100
+                        }
+                      ]
+                      endPoint Solid {
+                        translation 1.3444106938820255e-17 -0.0673188 -0.04834530000000003
+                        rotation 1 0 -6.280357339017197e-16 1.5708003061004232
+                        children [
+                          Shape {
+                            appearance GenericTireAppearance {
+                            }
+                            geometry DEF rueda Cylinder {
+                              height 0.05
+                              radius 0.12
+                            }
+                          }
+                        ]
+                        boundingObject USE rueda
+                        physics Physics {
+                        }
+                      }
+                    }
+                    DEF boggie_directional_left Shape {
+                      appearance BrushedSteel {
+                      }
+                      geometry Box {
+                        size 0.05 0.1 0.05
+                      }
+                    }
+                  ]
+                  boundingObject USE boggie_directional_left
+                  physics Physics {
+                  }
+                }
+              }
+              DEF Boggie Group {
+                children [
+                  Transform {
+                    translation -0.17 -0.16 0
+                    children [
+                      Shape {
+                        appearance BrushedSteel {
+                        }
+                        geometry Box {
+                          size 0.05 0.1 0.05
+                        }
+                      }
+                    ]
+                  }
+                  Transform {
+                    translation 0.116767 -0.0652523 0
+                    rotation 0 0 1 1.1
+                    children [
+                      Shape {
+                        appearance BrushedAluminium {
+                        }
+                        geometry Cylinder {
+                          height 0.3
+                          radius 0.03
+                        }
+                      }
+                    ]
+                  }
+                  Transform {
+                    translation -0.084 -0.061 0
+                    rotation 0 0 1 -0.9162996938995747
+                    children [
+                      Shape {
+                        appearance BrushedAluminium {
+                        }
+                        geometry Cylinder {
+                          height 0.25
+                          radius 0.03
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+            boundingObject USE Boggie
+            physics Physics {
+            }
+          }
+        }
+        DEF directional_der_rocker HingeJoint {
+          jointParameters DEF der_rocker_directional HingeJointParameters {
+            axis 0 1 0
+            anchor -0.52 -0.283 0
+          }
+          device [
+            RotationalMotor {
+              name "der_rocker_directional"
+              maxTorque 1000000
+            }
+          ]
+          endPoint Solid {
+            translation -0.52 -0.293 0
+            children [
+              DEF rocker_der_wheel HingeJoint {
+                jointParameters HingeJointParameters {
+                  axis 0 0 1
+                  anchor 0 -0.0673 0.0383
+                }
+                device [
+                  RotationalMotor {
+                    name "wheel_rocker_der"
+                    maxTorque 100
+                  }
+                ]
+                endPoint Solid {
+                  translation 6.761016984983825e-18 -0.0673187 -0.03834529999999989
+                  rotation 1 -2.3551340021314497e-16 -8.635491341148647e-16 1.5708003061004232
+                  children [
+                    Shape {
+                      appearance GenericTireAppearance {
+                      }
+                      geometry DEF rueda Cylinder {
+                        height 0.05
+                        radius 0.12
+                      }
+                    }
+                  ]
+                  boundingObject USE rueda
+                  physics Physics {
+                  }
+                }
+              }
+              DEF rocker_directional_der Shape {
+                appearance BrushedSteel {
+                }
+                geometry Box {
+                  size 0.05 0.1 0.05
+                }
+              }
+            ]
+            name "solid(1)"
+            boundingObject USE rocker_directional_der
+            physics Physics {
+            }
+          }
+        }
+      ]
+      name "solid(1)"
+      boundingObject USE Rocker-Boogie-left
+      physics Physics {
+      }
+    }
+    DEF Chasis Shape {
+      appearance PBRAppearance {
+        baseColor 0.5 0.5 0.5
+        metalness 0.5
+      }
+      geometry DEF Chasis Box {
+        size 0.8 0.2 0.6
+      }
+    }
+  ]
+  boundingObject USE Chasis
+  physics Physics {
+  }
+  controller "<extern>"
+}
