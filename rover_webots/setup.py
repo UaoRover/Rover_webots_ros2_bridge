@@ -12,10 +12,18 @@ data_files.append(('share/ament_index/resource_index/packages', [
 data_files.append(('share/' + package_name, [
     'launch/demo_launch.py'
 ]))
+data_files.append(('share/' + package_name, [
+    'launch/rover_launch.py'
+]))
 data_files.append(('share/' + package_name + '/worlds', [
     'worlds/Prueba_rover_1_sin_rocker.wbt'
 ]))
-
+data_files.append(('share/' + package_name + '/rviz', [
+    'rviz/urdf_config.rviz'
+]))
+data_files.append(('share/' + package_name + '/src/description', [
+    'src/description/rover.urdf'
+]))
 
 data_files.append(('share/' + package_name, ['package.xml']))
 data_files.append(('share/ament_index/resource_index/packages',['resource/' + package_name]))

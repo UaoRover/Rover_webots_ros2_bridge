@@ -1,0 +1,308 @@
+<?xml version="1.0"?>
+<robot name="sam_bot" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:property name="base_width" value="0.6"/>
+  <xacro:property name="base_length" value="0.8"/>
+  <xacro:property name="base_height" value="0.2"/>
+
+  <xacro:property name="leg_radius" value="0.03"/>
+  <xacro:property name="rocker_height" value="0.6"/>
+  <xacro:property name="rocker_boogie_height" value="0.3"/>
+  <xacro:property name="boogie_height" value="0.25"/>
+  
+  <xacro:property name="wheel_box_width" value="0.05"/>
+  <xacro:property name="wheel_box_length" value="0.05"/>
+  <xacro:property name="wheel_box_height" value="0.1"/>
+
+  <xacro:property name="wheel_radius" value="0.12"/>
+  <xacro:property name="wheel_height" value="0.05"/>
+
+
+    <link name="base_link">
+    <visual>
+      <origin xyz="0 0 0.5" rpy="0 0 0" />
+      <geometry>
+        <box size="${base_length} ${base_width} ${base_height}"/>
+      </geometry>
+      <material name="Cyan">
+        <color rgba="0 1.0 1.0 1.0"/>
+      </material>
+    </visual>
+  </link>
+
+    <link name="base_footprint"/>
+
+  <joint name="base_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="base_footprint"/>
+    <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
+  </joint>
+
+
+
+  <xacro:macro name="rocker" params="prefix y_reflect z_reflect">
+    <link name="${prefix}_link">
+      <visual>
+        <origin xyz="0.26 0 -0.13" rpy="0 -1.1 0"/>
+        <geometry>
+            <cylinder radius="${leg_radius}" length="${rocker_height}"/>
+        </geometry>
+        <material name="Gray">
+          <color rgba="0.5 0.5 0.5 1.0"/>
+        </material>
+      </visual>
+    </link>
+
+    <joint name="${prefix}_joint" type="continuous">
+      <parent link="base_link"/>
+      <child link="${prefix}_link"/>
+      <origin xyz="0 ${0.33*y_reflect} 0.5" rpy="0 0 0"/>
+      <axis xyz="0 1 0"/>
+    </joint>
+  </xacro:macro>
+
+  <xacro:rocker prefix="rocker_l" y_reflect="1" z_reflect="-1" />
+  <xacro:rocker prefix="rocker_r" y_reflect="-1" z_reflect="-1" />
+
+
+  <xacro:macro name="rocker_boogie" params="prefix joint">
+    <link name="${prefix}_link">
+      <visual>
+        <origin xyz="-0.11 0 -0.068" rpy="0 1.0472 0"/>
+        <geometry>
+            <cylinder radius="${leg_radius}" length="${rocker_boogie_height}"/>
+        </geometry>
+        <material name="Gray">
+          <color rgba="0.5 0.5 0.5 1.0"/>
+        </material>
+      </visual>
+    </link>
+
+    <joint name="${prefix}_joint" type="fixed">
+      <parent link="${joint}_link"/>
+      <child link="${prefix}_link"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+  </xacro:macro>
+
+  <xacro:rocker_boogie prefix="rocker_boogie_l" joint="rocker_l"/>
+  <xacro:rocker_boogie prefix="rocker_boogie_r" joint="rocker_r"/>
+
+
+  <xacro:macro name="boogie_mid" params="prefix joint">
+    <link name="${prefix}_link">
+      <visual>
+        <origin xyz="0.084 0 -0.061" rpy="0 -0.9163 0"/>
+        <geometry>
+            <cylinder radius="${leg_radius}" length="${boogie_height}"/>
+        </geometry>
+        <material name="Gray">
+          <color rgba="0.5 0.5 0.5 1.0"/>
+        </material>
+      </visual>
+    </link>
+
+    <joint name="${prefix}_joint" type="continuous">
+      <parent link="${joint}_link"/>
+      <child link="${prefix}_link"/>
+      <origin xyz="-0.22 0 -0.133" rpy="0 0 0"/>
+      <axis xyz="0 1 0"/>
+    </joint>
+  </xacro:macro>
+
+  <xacro:boogie_mid prefix="boogie_mid_l" joint="rocker_boogie_l"/>
+  <xacro:boogie_mid prefix="boogie_mid_r" joint="rocker_boogie_r"/>
+
+  <xacro:macro name="boogie_dir" params="prefix joint">
+    <link name="${prefix}_link">
+      <visual>
+        <origin xyz="-0.116767 0 -0.0652523" rpy="0 1.1 0"/>
+        <geometry>
+            <cylinder radius="${leg_radius}" length="${rocker_boogie_height}"/>
+        </geometry>
+        <material name="Gray">
+          <color rgba="0.5 0.5 0.5 1.0"/>
+        </material>
+      </visual>
+    </link>
+
+    <joint name="${prefix}_joint" type="fixed">
+      <parent link="${joint}_link"/>
+      <child link="${prefix}_link"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+  </xacro:macro>
+
+  <xacro:boogie_dir prefix="boogie_dir_l" joint="boogie_mid_l"/>
+  <xacro:boogie_dir prefix="boogie_dir_r" joint="boogie_mid_r"/>
+
+    <xacro:macro name="dir_mid" params="prefix joint">
+    <link name="${prefix}_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+            <box size="${wheel_box_width} ${wheel_box_length} ${wheel_box_height}"/>
+        </geometry>
+        <material name="Gray">
+          <color rgba="0.5 0.5 0.5 1.0"/>
+        </material>
+      </visual>
+    </link>
+
+    <joint name="${prefix}_joint" type="fixed">
+      <parent link="${joint}_link"/>
+      <child link="${prefix}_link"/>
+      <origin xyz="0.17 0 -0.16" rpy="0 0 0"/>
+    </joint>
+  </xacro:macro>
+
+  <xacro:dir_mid prefix="dir_mid_l" joint="boogie_mid_l"/>
+  <xacro:dir_mid prefix="dir_mid_r" joint="boogie_mid_r"/>
+
+  <xacro:macro name="wheel_mid" params="prefix joint y_reflect" >
+    <link name="${prefix}_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="1.5717 0 0"/>
+        <geometry>
+            <cylinder radius="${wheel_radius}" length="${wheel_height}"/>
+        </geometry>
+        <material name="Gray">
+          <color rgba="0.5 0.5 0.5 1.0"/>
+        </material>
+      </visual>
+    </link>
+
+    <joint name="${prefix}_joint" type="continuous">
+      <parent link="${joint}_link"/>
+      <child link="${prefix}_link"/>
+      <origin xyz="0 ${y_reflect*0.0516} -0.068" rpy="0 0 0"/>
+      <axis xyz="0 1 0"/>
+    </joint>
+  </xacro:macro>
+
+  <xacro:wheel_mid prefix="wheel_mid_l" joint="dir_mid_l" y_reflect="1"/>
+  <xacro:wheel_mid prefix="wheel_mid_r" joint="dir_mid_r" y_reflect="-1"/>
+
+
+
+    <xacro:macro name="dir_boogie" params="prefix joint">
+    <link name="${prefix}_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+            <box size="${wheel_box_width} ${wheel_box_length} ${wheel_box_height}"/>
+        </geometry>
+        <material name="Gray">
+          <color rgba="0.5 0.5 0.5 1.0"/>
+        </material>
+      </visual>
+    </link>
+
+    <joint name="${prefix}_joint" type="continuous">
+      <parent link="${joint}_link"/>
+      <child link="${prefix}_link"/>
+      <origin xyz="-0.25 0 -0.16" rpy="0 0 0"/>
+      <axis xyz="0 0 1"/>
+    </joint>
+  </xacro:macro>
+
+  <xacro:dir_boogie prefix="dir_boogie_l" joint="boogie_dir_l"/>
+  <xacro:dir_boogie prefix="dir_boogie_r" joint="boogie_dir_r"/>
+
+  <xacro:macro name="wheel_boogie_dir" params="prefix joint y_reflect" >
+    <link name="${prefix}_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="1.5717 0 0"/>
+        <geometry>
+            <cylinder radius="${wheel_radius}" length="${wheel_height}"/>
+        </geometry>
+        <material name="Gray">
+          <color rgba="0.5 0.5 0.5 1.0"/>
+        </material>
+      </visual>
+    </link>
+
+    <joint name="${prefix}_joint" type="continuous">
+      <parent link="${joint}_link"/>
+      <child link="${prefix}_link"/>
+      <origin xyz="0 ${y_reflect*0.0516} -0.068" rpy="0 0 0"/>
+      <axis xyz="0 1 0"/>
+    </joint>
+  </xacro:macro>
+
+  <xacro:wheel_boogie_dir prefix="wheel_boogie_dir_l" joint="dir_boogie_l" y_reflect="1"/>
+  <xacro:wheel_boogie_dir prefix="wheel_boogie_dir_r" joint="dir_boogie_r" y_reflect="-1"/>
+
+
+    <xacro:macro name="dir_rocker" params="prefix joint">
+    <link name="${prefix}_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+            <box size="${wheel_box_width} ${wheel_box_length} ${wheel_box_height}"/>
+        </geometry>
+        <material name="Gray">
+          <color rgba="0.5 0.5 0.5 1.0"/>
+        </material>
+      </visual>
+    </link>
+
+    <joint name="${prefix}_joint" type="continuous">
+      <parent link="${joint}_link"/>
+      <child link="${prefix}_link"/>
+      <origin xyz="0.52 0 -0.293" rpy="0 0 0"/>
+      <axis xyz="0 0 1"/>
+    </joint>
+  </xacro:macro>
+
+  <xacro:dir_rocker prefix="dir_rocker_l" joint="rocker_l"/>
+  <xacro:dir_rocker prefix="dir_rocker_r" joint="rocker_r"/>
+
+  <xacro:macro name="wheel_rocker_dir" params="prefix joint y_reflect" >
+    <link name="${prefix}_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="1.5717 0 0"/>
+        <geometry>
+            <cylinder radius="${wheel_radius}" length="${wheel_height}"/>
+        </geometry>
+        <material name="Gray">
+          <color rgba="0.5 0.5 0.5 1.0"/>
+        </material>
+      </visual>
+    </link>
+
+    <joint name="${prefix}_joint" type="continuous">
+      <parent link="${joint}_link"/>
+      <child link="${prefix}_link"/>
+      <origin xyz="0 ${y_reflect*0.0516} -0.068" rpy="0 0 0"/>
+      <axis xyz="0 1 0"/>
+    </joint>
+  </xacro:macro>
+
+  <xacro:wheel_rocker_dir prefix="wheel_rocker_dir_l" joint="dir_rocker_l" y_reflect="1"/>
+  <xacro:wheel_rocker_dir prefix="wheel_rocker_dir_r" joint="dir_rocker_r" y_reflect="-1"/>
+  
+
+
+
+
+  <link name="camera">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.02 0.02 0.02"/>
+      </geometry>
+      <material name="Cyan">
+        <color rgba="0 1.0 1.0 1.0"/>
+      </material>
+    </visual>
+  </link>
+
+  <joint name="camera_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="camera"/>
+    <origin xyz="0.39 0.0 0.11" rpy="0 0 -1.5708"/>
+  </joint>
+
+
+</robot>
