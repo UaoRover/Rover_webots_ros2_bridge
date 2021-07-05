@@ -107,7 +107,7 @@ class ServiceNodeVelocity(WebotsNode):
         msg.width = self.camera.getWidth()
         msg.is_bigendian = False
         msg.step = self.camera.getWidth() * 4
-        msg.header.frame_id = 'map'
+        msg.header.frame_id = 'camera'
         msg._data = camera_data
         msg.encoding = 'bgra8'
 
