@@ -79,21 +79,21 @@ class ServiceNodeVelocity(WebotsNode):
     #callback del suscriber
     def cmdVel_callback(self, msg):
         #calculo de Cinematica
-        wheel_gap = 0.1  # in meter
-        wheel_radius = 0.04  # in meter
+        #wheel_gap = 0.1  # in meter
+        #wheel_radius = 0.04  # in meter
 
-        left_speed = ((2.0 * msg.linear.x - msg.angular.z *
-                       wheel_gap) / (2.0 * wheel_radius))
-        right_speed = ((2.0 * msg.linear.x + msg.angular.z *
-                        wheel_gap) / (2.0 * wheel_radius))
-        left_speed = min(self.motor_max_speed,
-                         max(-self.motor_max_speed, left_speed))
-        right_speed = min(self.motor_max_speed,
-                          max(-self.motor_max_speed, right_speed))
+        #left_speed = ((2.0 * msg.linear.x - msg.angular.z *
+        #               wheel_gap) / (2.0 * wheel_radius))
+        #right_speed = ((2.0 * msg.linear.x + msg.angular.z *
+        #                wheel_gap) / (2.0 * wheel_radius))
+        #left_speed = min(self.motor_max_speed,
+        #                 max(-self.motor_max_speed, left_speed))
+        #right_speed = min(self.motor_max_speed,
+        #                  max(-self.motor_max_speed, right_speed))
         #se envia la velocidad a las llantas
-        self.left_motor_front.setVelocity(left_speed)
-        self.right_motor_front.setVelocity(right_speed)
-        self.left_motor_rear.setVelocity(left_speed)
+        self.left_motor_front.setVelocity(msg.linear.x)
+        self.right_motor_rear.setVelocity(msg.linear.x)
+   
 
     #callback del service
     def sensor_callback(self):
