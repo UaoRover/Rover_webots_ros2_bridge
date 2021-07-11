@@ -4,41 +4,732 @@ WorldInfo {
   coordinateSystem "NUE"
 }
 Viewpoint {
-  orientation -0.3894457811420714 -0.9119470632558552 -0.12916863926535319 1.1315922490686416
-  position -4.008462207574101 3.0537684874440214 -1.4035185325541313
+  orientation 0.2595288869064136 -0.9654955412450206 0.021520146307649146 5.418669543814576
+  position 216.23406359400752 13.631527111785699 52.95657406317464
+  follow "solid"
+  followType "None"
 }
 TexturedBackground {
 }
 TexturedBackgroundLight {
 }
-UnevenTerrain {
-  translation 0 -1.49 0
-}
-RectangleArena {
-  translation -1.32 0 -2.45
-  floorSize 10 10
-  floorTileSize 1 1
-  wallHeight 1
-}
-Solid {
-  translation 0.000252055 2.72 0.161723
+DEF Terreno Solid {
+  translation 0 -27 0
+  rotation -1 0 0 1.57748
+  scale 1.5 1.5 1.5
   children [
-    Shape {
-      appearance Appearance {
-        texture ImageTexture {
-          url [
-            "/home/alejoxbg/Pictures/Screenshot from 2021-06-27 11-54-09.png"
-          ]
-        }
+    DEF terrain Shape {
+      appearance DryMud {
       }
-      geometry Box {
-        size 0.5 0.5 0.5
+      geometry Mesh {
+        url [
+          "meshes/Rocas5.stl"
+        ]
       }
     }
   ]
+  name "solid(1)"
+  boundingObject USE terrain
+  locked TRUE
+}
+DEF Poste_1 Solid {
+  translation 121.121 12.19 27.635
+  rotation 0.9999999999999998 9.589789999999996e-09 -9.589759999999998e-09 1.5707953071795862
+  children [
+    Group {
+      children [
+        Transform {
+          translation 1.7735e-09 -3.01391e-09 0
+          rotation 0.5000001748438417 0.8660253028382762 4.152501452078106e-09 3.14159
+          children [
+            DEF Poste_1 Shape {
+              appearance Appearance {
+                material Material {
+                  diffuseColor 0 0 0
+                  shininess 0
+                }
+                texture ImageTexture {
+                  url [
+                    "/home/alejoxbg/ros2_ws/src/Rover_webots_ros2_bridge/rover_webots/worlds/pictures/Poste_1.jpeg"
+                  ]
+                }
+                textureTransform TextureTransform {
+                  rotation 1.5708
+                }
+              }
+              geometry Box {
+                size 0.002 0.2 0.2
+              }
+            }
+          ]
+        }
+        Transform {
+          translation -0.09 0.05 0
+          rotation 1 0 0 3.14159
+          children [
+            USE Poste_1
+          ]
+        }
+        Transform {
+          translation -0.0011622 0.102404 0
+          rotation 0 0 1 1.04721
+          children [
+            USE Poste_1
+          ]
+        }
+      ]
+    }
+    Transform {
+      translation -0.03 0.0499992 0.34
+      rotation 1 0 0 1.5708
+      children [
+        Shape {
+          appearance BrushedAluminium {
+          }
+          geometry Cylinder {
+            height 1
+            radius 0.01
+          }
+        }
+      ]
+    }
+  ]
+}
+DEF Poste_2 Solid {
+  translation 185.541 12.01 -26.345
+  rotation -1 -9.58979e-09 9.58976e-09 -1.5707953071795862
+  children [
+    Group {
+      children [
+        Transform {
+          translation 1.7735e-09 -3.01391e-09 0
+          rotation 0.5000001748438417 0.8660253028382762 4.152501452078106e-09 3.14159
+          children [
+            DEF Poste_2 Shape {
+              appearance Appearance {
+                material Material {
+                  diffuseColor 0 0 0
+                  shininess 0
+                }
+                texture ImageTexture {
+                  url [
+                    "/home/alejoxbg/ros2_ws/src/Rover_webots_ros2_bridge/rover_webots/worlds/pictures/Poste_2.jpeg"
+                  ]
+                }
+                textureTransform TextureTransform {
+                  rotation 1.5708
+                }
+              }
+              geometry Box {
+                size 0.002 0.2 0.2
+              }
+            }
+          ]
+        }
+        Transform {
+          translation -0.09 0.05 0
+          rotation 1 0 0 3.14159
+          children [
+            USE Poste_2
+          ]
+        }
+        Transform {
+          translation -0.0011622 0.102404 0
+          rotation 0 0 1 1.04721
+          children [
+            USE Poste_2
+          ]
+        }
+      ]
+    }
+    Transform {
+      translation -0.03 0.0499992 0.34
+      rotation 1 0 0 1.5708
+      children [
+        Shape {
+          appearance BrushedAluminium {
+          }
+          geometry Cylinder {
+            height 1
+            radius 0.01
+          }
+        }
+      ]
+    }
+  ]
+  name "solid(2)"
+}
+DEF Poste_3 Solid {
+  translation 283.531 12.01 -87.685
+  rotation -1 -9.58979e-09 9.58976e-09 -1.5707953071795862
+  children [
+    Group {
+      children [
+        Transform {
+          translation 1.7735e-09 -3.01391e-09 0
+          rotation 0.5000001748438417 0.8660253028382762 4.152501452078106e-09 3.14159
+          children [
+            DEF Poste_3 Shape {
+              appearance Appearance {
+                material Material {
+                  diffuseColor 0 0 0
+                  shininess 0
+                }
+                texture ImageTexture {
+                  url [
+                    "/home/alejoxbg/ros2_ws/src/Rover_webots_ros2_bridge/rover_webots/worlds/pictures/Poste_3.jpeg"
+                  ]
+                }
+                textureTransform TextureTransform {
+                  rotation 1.5708
+                }
+              }
+              geometry Box {
+                size 0.002 0.2 0.2
+              }
+            }
+          ]
+        }
+        Transform {
+          translation -0.09 0.05 0
+          rotation 1 0 0 3.14159
+          children [
+            USE Poste_3
+          ]
+        }
+        Transform {
+          translation -0.0011622 0.102404 0
+          rotation 0 0 1 1.04721
+          children [
+            USE Poste_3
+          ]
+        }
+      ]
+    }
+    Transform {
+      translation -0.03 0.0499992 0.34
+      rotation 1 0 0 1.5708
+      children [
+        Shape {
+          appearance BrushedAluminium {
+          }
+          geometry Cylinder {
+            height 1
+            radius 0.01
+          }
+        }
+      ]
+    }
+  ]
+  name "solid(3)"
+}
+DEF Poste_4 Solid {
+  translation 243.681 12.01 -185.235
+  rotation 0.9351130202419243 -0.25056300542381216 0.25056300542381216 1.63783
+  children [
+    Group {
+      children [
+        Transform {
+          rotation 0 0 -1 1.047195613280012
+          children [
+            DEF Poste_4 Shape {
+              appearance Appearance {
+                material Material {
+                  diffuseColor 0 0 0
+                  shininess 0
+                }
+                texture ImageTexture {
+                  url [
+                    "/home/alejoxbg/ros2_ws/src/Rover_webots_ros2_bridge/rover_webots/worlds/pictures/Poste_4.jpeg"
+                  ]
+                }
+                textureTransform TextureTransform {
+                  rotation 1.57
+                }
+              }
+              geometry Box {
+                size 0.002 0.2 0.2
+              }
+            }
+          ]
+        }
+        Transform {
+          translation -0.09 0.05 0
+          rotation 1 0 0 3.14159
+          children [
+            USE Poste_4
+          ]
+        }
+        Transform {
+          translation -0.0011622 0.102404 0
+          rotation 0 0 1 1.04721
+          children [
+            USE Poste_4
+          ]
+        }
+      ]
+    }
+    Transform {
+      translation -0.03 0.0499992 0.34
+      rotation 1 0 0 1.5708
+      children [
+        Shape {
+          appearance BrushedAluminium {
+          }
+          geometry Cylinder {
+            height 1
+            radius 0.01
+          }
+        }
+      ]
+    }
+  ]
+  name "solid(4)"
+}
+DEF Poste_5 Solid {
+  translation 241.351 12.01 -185.593
+  rotation -0.09269161202546015 -0.7040610913422306 0.7040640913426198 -2.9567353071795863
+  children [
+    Group {
+      children [
+        Transform {
+          rotation 0 0 -1 1.047195613280012
+          children [
+            DEF Poste_5 Shape {
+              appearance Appearance {
+                material Material {
+                  diffuseColor 0 0 0
+                  shininess 0
+                }
+                texture ImageTexture {
+                  url [
+                    "/home/alejoxbg/ros2_ws/src/Rover_webots_ros2_bridge/rover_webots/worlds/pictures/Poste_5.jpeg"
+                  ]
+                }
+                textureTransform TextureTransform {
+                  rotation 1.57
+                }
+              }
+              geometry Box {
+                size 0.002 0.2 0.2
+              }
+            }
+          ]
+        }
+        Transform {
+          translation -0.09 0.05 0
+          rotation 1 0 0 3.14159
+          children [
+            USE Poste_5
+          ]
+        }
+        Transform {
+          translation -0.0011622 0.102404 0
+          rotation 0 0 1 1.04721
+          children [
+            USE Poste_5
+          ]
+        }
+      ]
+    }
+    Transform {
+      translation -0.03 0.0499992 0.34
+      rotation 1 0 0 1.5708
+      children [
+        Shape {
+          appearance BrushedAluminium {
+          }
+          geometry Cylinder {
+            height 1
+            radius 0.01
+          }
+        }
+      ]
+    }
+  ]
+  name "solid(5)"
+}
+DEF Poste_6 Solid {
+  translation 131.594 12.01 -176.819
+  rotation -0.09269161202546015 -0.7040610913422306 0.7040640913426198 -2.9567353071795863
+  children [
+    Group {
+      children [
+        Transform {
+          rotation 0 0 -1 1.047195613280012
+          children [
+            DEF Poste_6 Shape {
+              appearance Appearance {
+                material Material {
+                  diffuseColor 0 0 0
+                  shininess 0
+                }
+                texture ImageTexture {
+                  url [
+                    "/home/alejoxbg/ros2_ws/src/Rover_webots_ros2_bridge/rover_webots/worlds/pictures/Poste_6.jpeg"
+                  ]
+                }
+                textureTransform TextureTransform {
+                  rotation 1.57
+                }
+              }
+              geometry Box {
+                size 0.002 0.2 0.2
+              }
+            }
+          ]
+        }
+        Transform {
+          translation -0.09 0.05 0
+          rotation 1 0 0 3.14159
+          children [
+            USE Poste_6
+          ]
+        }
+        Transform {
+          translation -0.0011622 0.102404 0
+          rotation 0 0 1 1.04721
+          children [
+            USE Poste_6
+          ]
+        }
+      ]
+    }
+    Transform {
+      translation -0.03 0.0499992 0.34
+      rotation 1 0 0 1.5708
+      children [
+        Shape {
+          appearance BrushedAluminium {
+          }
+          geometry Cylinder {
+            height 1
+            radius 0.01
+          }
+        }
+      ]
+    }
+  ]
+  name "solid(6)"
+}
+DEF Poste_7 Solid {
+  translation 132.111 12.01 -178.759
+  rotation 0.18615605074009628 -0.6947451893649853 0.6947481893658031 2.77349
+  children [
+    Group {
+      children [
+        Transform {
+          rotation 0 0 -1 1.047195613280012
+          children [
+            DEF Poste_7 Shape {
+              appearance Appearance {
+                material Material {
+                  diffuseColor 0 0 0
+                  shininess 0
+                }
+                texture ImageTexture {
+                  url [
+                    "/home/alejoxbg/ros2_ws/src/Rover_webots_ros2_bridge/rover_webots/worlds/pictures/Poste_7.jpeg"
+                  ]
+                }
+                textureTransform TextureTransform {
+                  rotation 1.57
+                }
+              }
+              geometry Box {
+                size 0.002 0.2 0.2
+              }
+            }
+          ]
+        }
+        Transform {
+          translation -0.09 0.05 0
+          rotation 1 0 0 3.14159
+          children [
+            USE Poste_7
+          ]
+        }
+        Transform {
+          translation -0.0011622 0.102404 0
+          rotation 0 0 1 1.04721
+          children [
+            USE Poste_7
+          ]
+        }
+      ]
+    }
+    Transform {
+      translation -0.03 0.0499992 0.34
+      rotation 1 0 0 1.5708
+      children [
+        Shape {
+          appearance BrushedAluminium {
+          }
+          geometry Cylinder {
+            height 1
+            radius 0.01
+          }
+        }
+      ]
+    }
+  ]
+  name "solid(7)"
+}
+DEF Poste_8 Solid {
+  translation 159.247 11.6299 -336.304
+  rotation 0.18615605074009628 -0.6947451893649853 0.6947481893658031 2.77349
+  children [
+    Group {
+      children [
+        Transform {
+          rotation 0 0 -1 1.047195613280012
+          children [
+            DEF Poste_8 Shape {
+              appearance Appearance {
+                material Material {
+                  diffuseColor 0 0 0
+                  shininess 0
+                }
+                texture ImageTexture {
+                  url [
+                    "/home/alejoxbg/ros2_ws/src/Rover_webots_ros2_bridge/rover_webots/worlds/pictures/Poste_8.jpeg"
+                  ]
+                }
+                textureTransform TextureTransform {
+                  rotation 1.57
+                }
+              }
+              geometry Box {
+                size 0.002 0.2 0.2
+              }
+            }
+          ]
+        }
+        Transform {
+          translation -0.09 0.05 0
+          rotation 1 0 0 3.14159
+          children [
+            USE Poste_8
+          ]
+        }
+        Transform {
+          translation -0.0011622 0.102404 0
+          rotation 0 0 1 1.04721
+          children [
+            USE Poste_8
+          ]
+        }
+      ]
+    }
+    Transform {
+      translation -0.03 0.0499992 0.34
+      rotation 1 0 0 1.5708
+      children [
+        Shape {
+          appearance BrushedAluminium {
+          }
+          geometry Cylinder {
+            height 1
+            radius 0.01
+          }
+        }
+      ]
+    }
+  ]
+  name "solid(8)"
+}
+DEF Poste_9 Solid {
+  translation 160.978 11.6299 -337.304
+  rotation 0.18615605074009628 -0.6947451893649853 0.6947481893658031 2.77349
+  children [
+    Group {
+      children [
+        Transform {
+          rotation 0 0 -1 1.047195613280012
+          children [
+            DEF Poste_9 Shape {
+              appearance Appearance {
+                material Material {
+                  diffuseColor 0 0 0
+                  shininess 0
+                }
+                texture ImageTexture {
+                  url [
+                    "/home/alejoxbg/ros2_ws/src/Rover_webots_ros2_bridge/rover_webots/worlds/pictures/Poste_9.jpeg"
+                  ]
+                }
+                textureTransform TextureTransform {
+                  rotation 1.57
+                }
+              }
+              geometry Box {
+                size 0.002 0.2 0.2
+              }
+            }
+          ]
+        }
+        Transform {
+          translation -0.09 0.05 0
+          rotation 1 0 0 3.14159
+          children [
+            USE Poste_9
+          ]
+        }
+        Transform {
+          translation -0.0011622 0.102404 0
+          rotation 0 0 1 1.04721
+          children [
+            USE Poste_9
+          ]
+        }
+      ]
+    }
+    Transform {
+      translation -0.03 0.0499992 0.34
+      rotation 1 0 0 1.5708
+      children [
+        Shape {
+          appearance BrushedAluminium {
+          }
+          geometry Cylinder {
+            height 1
+            radius 0.01
+          }
+        }
+      ]
+    }
+  ]
+  name "solid(9)"
+}
+DEF Poste_10 Solid {
+  translation -27.4329 16.2904 -375.839
+  rotation 0.18615605074009628 -0.6947451893649853 0.6947481893658031 2.77349
+  children [
+    Group {
+      children [
+        Transform {
+          rotation 0 0 -1 1.047195613280012
+          children [
+            DEF Poste_10 Shape {
+              appearance Appearance {
+                material Material {
+                  diffuseColor 0 0 0
+                  shininess 0
+                }
+                texture ImageTexture {
+                  url [
+                    "/home/alejoxbg/ros2_ws/src/Rover_webots_ros2_bridge/rover_webots/worlds/pictures/Poste_10.jpeg"
+                  ]
+                }
+                textureTransform TextureTransform {
+                  rotation 1.57
+                }
+              }
+              geometry Box {
+                size 0.002 0.2 0.2
+              }
+            }
+          ]
+        }
+        Transform {
+          translation -0.09 0.05 0
+          rotation 1 0 0 3.14159
+          children [
+            USE Poste_10
+          ]
+        }
+        Transform {
+          translation -0.0011622 0.102404 0
+          rotation 0 0 1 1.04721
+          children [
+            USE Poste_10
+          ]
+        }
+      ]
+    }
+    Transform {
+      translation -0.03 0.0499992 0.34
+      rotation 1 0 0 1.5708
+      children [
+        Shape {
+          appearance BrushedAluminium {
+          }
+          geometry Cylinder {
+            height 1
+            radius 0.01
+          }
+        }
+      ]
+    }
+  ]
+  name "solid(10)"
+}
+DEF Poste_11 Solid {
+  translation -28.4329 15.8404 -377.592
+  rotation -0.6776608267946584 0.5199878670947581 -0.5199888670945025 -1.9504353071795864
+  children [
+    Group {
+      children [
+        Transform {
+          rotation 0 0 -1 1.047195613280012
+          children [
+            DEF Poste_11 Shape {
+              appearance Appearance {
+                material Material {
+                  diffuseColor 0 0 0
+                  shininess 0
+                }
+                texture ImageTexture {
+                  url [
+                    "/home/alejoxbg/ros2_ws/src/Rover_webots_ros2_bridge/rover_webots/worlds/pictures/Poste_11.jpeg"
+                  ]
+                }
+                textureTransform TextureTransform {
+                  rotation 1.57
+                }
+              }
+              geometry Box {
+                size 0.002 0.2 0.2
+              }
+            }
+          ]
+        }
+        Transform {
+          translation -0.09 0.05 0
+          rotation 1 0 0 3.14159
+          children [
+            USE Poste_11
+          ]
+        }
+        Transform {
+          translation -0.0011622 0.102404 0
+          rotation 0 0 1 1.04721
+          children [
+            USE Poste_11
+          ]
+        }
+      ]
+    }
+    Transform {
+      translation -0.03 0.0499992 0.34
+      rotation 1 0 0 1.5708
+      children [
+        Shape {
+          appearance BrushedAluminium {
+          }
+          geometry Cylinder {
+            height 1
+            radius 0.01
+          }
+        }
+      ]
+    }
+  ]
+  name "solid(11)"
 }
 DEF Rover Robot {
-  translation -2.24 2.33 -2.22
+  translation 208.37 11.84 46.99
+  rotation 0 0 1 0
   children [
     Camera {
       translation -0.39 0.11 -4.77598e-17
