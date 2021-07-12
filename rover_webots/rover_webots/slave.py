@@ -22,7 +22,7 @@ class ServiceNodeVelocity(WebotsNode):
         super().__init__('slave_node', args)
 
         # Se define el tiempo de muestreo según la simulación
-        self.service_node_vel_timestep = 32
+        self.service_node_vel_timestep = 32*6
 
         # Se crea un ROS2 service que capturará las datos de Webots
         self.sensor_timer = self.create_timer(
@@ -42,35 +42,51 @@ class ServiceNodeVelocity(WebotsNode):
         self.get_logger().info('Sensor enabled')
 
         # Se obtienen los nombes de los motores, de pone su posición en infinito y su velocidad en 0 justo como en Webots
-        self.left_motor_front = self.robot.getDevice('wheel_boggie_left')
-        self.left_motor_front.setPosition(float('inf'))
-        self.left_motor_front.setVelocity(0)
+        self.boggie_left_motor = self.robot.getDevice('wheel_boggie_left')
+        self.boggie_left_motor.setPosition(float('inf'))
+        self.boggie_left_motor.setVelocity(0)
 
-        self.left_motor_front = self.robot.getDevice('middle_wheel_left')
-        self.left_motor_front.setPosition(float('inf'))
-        self.left_motor_front.setVelocity(0)
+        self.middle_left_motor = self.robot.getDevice('middle_wheel_left')
+        self.middle_left_motor.setPosition(float('inf'))
+        self.middle_left_motor.setVelocity(0)
 
         # Rear wheels
-        self.left_motor_rear = self.robot.getDevice('wheel_rocker_left')
-        self.left_motor_rear.setPosition(float('inf'))
-        self.left_motor_rear.setVelocity(0)
+        self.rocker_left_motor = self.robot.getDevice('wheel_rocker_left')
+        self.rocker_left_motor.setPosition(float('inf'))
+        self.rocker_left_motor.setVelocity(0)
 
-        self.right_motor_rear = self.robot.getDevice('wheel_boggie_der')
-        self.right_motor_rear.setPosition(float('inf'))
-        self.right_motor_rear.setVelocity(0)
-
-
-        self.right_motor_rear = self.robot.getDevice('middle_wheel_der')
-        self.right_motor_rear.setPosition(float('inf'))
-        self.right_motor_rear.setVelocity(0)
+        self.boggie_right_motor = self.robot.getDevice('wheel_boggie_der')
+        self.boggie_right_motor.setPosition(float('inf'))
+        self.boggie_right_motor.setVelocity(0)
 
 
-        self.right_motor_rear = self.robot.getDevice('wheel_rocker_der')
-        self.right_motor_rear.setPosition(float('inf'))
-        self.right_motor_rear.setVelocity(0)
+        self.middle_right_motor = self.robot.getDevice('middle_wheel_der')
+        self.middle_right_motor.setPosition(float('inf'))
+        self.middle_right_motor.setVelocity(0)
 
+
+        self.rocker_right_motor = self.robot.getDevice('wheel_rocker_der')
+        self.rocker_right_motor.setPosition(float('inf'))
+        self.rocker_right_motor.setVelocity(0)
+
+
+        self.left_boggie_directional_motor = self.robot.getDevice('left_boggie_directional')
+        self.left_boggie_directional_motor.setPosition(float('inf'))
+        self.left_boggie_directional_motor.setVelocity(0)
+
+        self.left_rocker_directional_motor = self.robot.getDevice('left_rocker_directional')
+        self.left_rocker_directional_motor.setPosition(float('inf'))
+        self.left_rocker_directional_motor.setVelocity(0)
+
+        self.der_rocker_directional_motor = self.robot.getDevice('der_rocker_directional')
+        self.der_rocker_directional_motor.setPosition(float('inf'))
+        self.der_rocker_directional_motor.setVelocity(0)
+
+        self.der_boggie_directional_motor = self.robot.getDevice('der_boggie_directional')
+        self.der_boggie_directional_motor.setPosition(float('inf'))
+        self.der_boggie_directional_motor.setVelocity(0)                        
         #Se obtiene la velocidad maxima de uno de los motores de Webots como referencia
-        self.motor_max_speed = self.left_motor_rear.getMaxVelocity()
+        self.motor_max_speed = self.rocker_right_motor.getMaxVelocity()
 
         #Se crea un Suscriber del comando de velocidad con el tipo de mensaje Twist y de nombre cmd_vel, se pone un callback para que se ejecute cuando recibe el mensaje
         self.cmd_vel_subscriber = self.create_subscription(
@@ -91,9 +107,16 @@ class ServiceNodeVelocity(WebotsNode):
         #right_speed = min(self.motor_max_speed,
         #                  max(-self.motor_max_speed, right_speed))
         #se envia la velocidad a las llantas
-        self.left_motor_front.setVelocity(msg.linear.x)
-        self.right_motor_rear.setVelocity(msg.linear.x)
-   
+        self.boggie_left_motor.setVelocity(msg.linear.x)
+        self.middle_left_motor.setVelocity(msg.linear.x)
+        self.rocker_left_motor.setVelocity(msg.linear.x)
+        self.boggie_right_motor.setVelocity(msg.linear.x)
+        self.middle_right_motor.setVelocity(msg.linear.x)
+        self.rocker_right_motor.setVelocity(msg.linear.x)
+        self.left_boggie_directional_motor.setVelocity(-msg.angular.z)
+        self.left_rocker_directional_motor.setVelocity(msg.angular.z)
+        self.der_rocker_directional_motor.setVelocity(msg.angular.z)
+        self.der_boggie_directional_motor.setVelocity(-msg.angular.z)
 
     #callback del service
     def sensor_callback(self):
@@ -119,6 +142,7 @@ class ServiceNodeVelocity(WebotsNode):
 
 def main(args=None):
     rclpy.init(args=args)
+    
     client_vel = ServiceNodeVelocity(args=args)
     rclpy.spin(client_vel)
 

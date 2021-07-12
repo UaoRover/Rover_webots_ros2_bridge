@@ -16,11 +16,11 @@ import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import Image
 from geometry_msgs.msg import Twist
+import sys,tty,termios
 
-
-class LineFollower(Node):
+class Teleop(Node):
     def __init__(self):
-        super().__init__('linefollower_cmdvel')
+        super().__init__('teleop_cmdvel')
         # Subscribe Infra Red sensors
         self.subs_camera = self.create_subscription(
             Image, 'img', self.camera_callback, 1)
@@ -33,10 +33,33 @@ class LineFollower(Node):
 
         self.cmd = Twist()
 
-        self.cmd.linear.x = 1.0
-        self.cmd.angular.z = 0.0
+        while True:
 
-        self.pubs_cmdvel.publish(self.cmd)
+            self.cmd.angular.z=0.0
+            self.cmd.linear.x =0.0
+            key = ord(get())
+            
+            print(key)
+            if key==119:
+                self.cmd.linear.x =1.0
+            if key==115:
+                self.cmd.linear.x =-1.0
+            if key== 100:
+                self.cmd.angular.z=-0.5
+            if key==97:
+                self.cmd.angular.z=0.5
+            if key ==32:
+                self.cmd.angular.z=0.0
+                self.cmd.linear.x =0.0
+            print('Vel_lin: '+str(self.cmd.linear.x)+'\nVel_ang: '+str(self.cmd.angular.z))
+            self.pubs_cmdvel.publish(self.cmd)
+
+            if key==3:
+                self.cmd.angular.z=0.0
+                self.cmd.linear.x =0.0
+                self.pubs_cmdvel.publish(self.cmd)
+                break
+
 
     # Call backs to update sensor reading variables
     def camera_callback(self, msg):
@@ -48,12 +71,30 @@ def main(args=None):
 
     rclpy.init(args=args)
 
-    ls = LineFollower()
+    ls = Teleop()
     rclpy.spin(ls)
 
     ls.destroy_node()
     rclpy.shutdown()
 
+class _Getch:       
+    def __call__(self):
+            fd = sys.stdin.fileno()
+            old_settings = termios.tcgetattr(fd)
+            try:
+            	tty.setraw(sys.stdin.fileno())
+    	        ch = sys.stdin.read(1)
+            finally:
+                termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
+            return ch    
+
+def get():
+    inkey = _Getch()
+    while(1):
+            k=inkey()
+            if k!='':break
+    #print 'you pressed', ord(k)
+    return k
 
 if __name__ == '__main__':
     main()

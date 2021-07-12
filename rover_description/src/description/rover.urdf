@@ -40,6 +40,26 @@
 
 
 
+  <link name="camera">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.02 0.02 0.02"/>
+      </geometry>
+      <material name="Cyan">
+        <color rgba="0 1.0 1.0 1.0"/>
+      </material>
+    </visual>
+  </link>
+
+  <joint name="camera_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="camera"/>
+    <origin xyz="0.39 0.0 0.61" rpy="0 0 -1.5708"/>
+  </joint>
+
+
+
   <xacro:macro name="rocker" params="prefix y_reflect z_reflect">
     <link name="${prefix}_link">
       <visual>
@@ -282,27 +302,6 @@
   <xacro:wheel_rocker_dir prefix="wheel_rocker_dir_l" joint="dir_rocker_l" y_reflect="1"/>
   <xacro:wheel_rocker_dir prefix="wheel_rocker_dir_r" joint="dir_rocker_r" y_reflect="-1"/>
   
-
-
-
-
-  <link name="camera">
-    <visual>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <box size="0.02 0.02 0.02"/>
-      </geometry>
-      <material name="Cyan">
-        <color rgba="0 1.0 1.0 1.0"/>
-      </material>
-    </visual>
-  </link>
-
-  <joint name="camera_joint" type="fixed">
-    <parent link="base_link"/>
-    <child link="camera"/>
-    <origin xyz="0.39 0.0 0.61" rpy="0 0 -1.5708"/>
-  </joint>
 
 
 </robot>

@@ -21,7 +21,12 @@ data_files.append(('share/' + package_name + '/worlds', [
 data_files.append(('share/' + package_name + '/worlds/meshes', [
     'worlds/meshes/Rocas5.stl'
 ]))
-
+data_files.append(('share/' + package_name, [
+    'launch/rectangle_launch.py'
+]))
+data_files.append(('share/' + package_name + '/worlds', [
+    'worlds/Prueba de Visual.wbt'
+]))
 
 data_files.append(('share/' + package_name, ['package.xml']))
 data_files.append(('share/ament_index/resource_index/packages',['resource/' + package_name]))
