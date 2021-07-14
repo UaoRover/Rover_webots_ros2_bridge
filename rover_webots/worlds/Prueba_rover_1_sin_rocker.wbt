@@ -5,7 +5,7 @@ WorldInfo {
 }
 Viewpoint {
   orientation 0.2595288869064136 -0.9654955412450206 0.021520146307649146 5.418669543814576
-  position 216.23406359400752 13.631527111785699 52.95657406317464
+  position 259.78371331251776 24.875450242424 91.34288615225513
   follow "solid"
   followType "None"
 }
@@ -23,7 +23,7 @@ DEF Terreno Solid {
       }
       geometry Mesh {
         url [
-          "meshes/Rocas5.stl"
+          "meshes/Terrain.stl"
         ]
       }
     }

@@ -18,14 +18,14 @@ data_files.append(('share/' + package_name, [
 data_files.append(('share/' + package_name + '/worlds', [
     'worlds/Prueba_rover_1_sin_rocker.wbt'
 ]))
-data_files.append(('share/' + package_name + '/worlds/meshes', [
-    'worlds/meshes/Rocas5.stl'
-]))
 data_files.append(('share/' + package_name, [
     'launch/rectangle_launch.py'
 ]))
 data_files.append(('share/' + package_name + '/worlds', [
     'worlds/Prueba de Visual.wbt'
+]))
+data_files.append(('share/' + package_name + '/worlds/meshes', [
+    'worlds/meshes/Terrain.stl'
 ]))
 
 data_files.append(('share/' + package_name, ['package.xml']))
