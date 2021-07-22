@@ -4,8 +4,8 @@ WorldInfo {
   coordinateSystem "NUE"
 }
 Viewpoint {
-  orientation 0.36540062448661714 0.8771230411800908 0.3116689818634172 5.195057968277996
-  position 207.3006344105485 12.480665059285784 47.663108764943
+  orientation 0.44111188182279415 -0.8974462468823957 0.0032467940272153575 5.54840322142744
+  position 8.542402266824784 3.917978259644368 10.914064551491643
   follow "solid"
   followType "None"
 }
@@ -14,9 +14,9 @@ TexturedBackground {
 TexturedBackgroundLight {
 }
 DEF Terreno Solid {
-  translation 0 -27 0
+  translation 0 -7.09852 -77.5355
   rotation -1 0 0 1.57748
-  scale 1.5 1.5 1.5
+  scale 20 20 20
   children [
     DEF terrain Shape {
       appearance DryMud {
@@ -30,11 +30,39 @@ DEF Terreno Solid {
   ]
   name "solid(1)"
   boundingObject USE terrain
-  locked TRUE
+}
+SimpleTree {
+  translation 0 0 -16
+  name "tree(1)"
+  type "random"
+}
+Pine {
+  translation 0 0 -10.59
+}
+Tree {
+  translation 0 0 -14
+}
+BigSassafras {
+  translation 0 0 -7.02
+}
+Cypress {
+  translation 0 0 -5.32
+}
+Rock17cm {
+  translation 0 0 -2.18
+}
+Rock10cm {
+  translation 0 0.05 -1.91
+}
+Pedestrian {
+  translation 0 1.27 -5.17
+}
+PottedTree {
+  translation 0 0 -3.02
 }
 DEF Poste_1 Solid {
-  translation 121.121 12.19 27.635
-  rotation 0.9999999999999998 9.589789999999996e-09 -9.589759999999998e-09 1.5707953071795862
+  translation -44.67 -0.11 9.68953e-07
+  rotation -1 -1.91796e-08 1.91796e-08 -1.5707953071795862
   children [
     Group {
       children [
@@ -96,8 +124,8 @@ DEF Poste_1 Solid {
   ]
 }
 DEF Poste_2 Solid {
-  translation 185.541 12.01 -26.345
-  rotation -1 -9.58979e-09 9.58976e-09 -1.5707953071795862
+  translation -67.5427 0.220047 -29.8547
+  rotation 0.9831056944488314 -0.1294279597735375 0.1294279597735375 1.58783
   children [
     Group {
       children [
@@ -160,8 +188,8 @@ DEF Poste_2 Solid {
   name "solid(2)"
 }
 DEF Poste_3 Solid {
-  translation 283.531 12.01 -87.685
-  rotation -1 -9.58979e-09 9.58976e-09 -1.5707953071795862
+  translation -42.91 -0.120053 -52.51
+  rotation -0.1861570160863869 -0.6947460600350939 0.6947470600351803 -2.7734953071795863
   children [
     Group {
       children [
@@ -224,8 +252,8 @@ DEF Poste_3 Solid {
   name "solid(3)"
 }
 DEF Poste_4 Solid {
-  translation 243.681 12.01 -185.235
-  rotation 0.9351130202419243 -0.25056300542381216 0.25056300542381216 1.63783
+  translation 6.12378 0 -14.2242
+  rotation 0.7745961212986637 -0.44721407003194 0.44721407003194 1.82347
   children [
     Group {
       children [
@@ -287,8 +315,8 @@ DEF Poste_4 Solid {
   name "solid(4)"
 }
 DEF Poste_5 Solid {
-  translation 241.351 12.01 -185.593
-  rotation -0.09269161202546015 -0.7040610913422306 0.7040640913426198 -2.9567353071795863
+  translation 6.90257 -1.19589e-05 -17.1332
+  rotation 0.37796304747046094 -0.6546520822213608 0.6546560822218632 2.41886
   children [
     Group {
       children [
@@ -350,8 +378,8 @@ DEF Poste_5 Solid {
   name "solid(5)"
 }
 DEF Poste_6 Solid {
-  translation 131.594 12.01 -176.819
-  rotation -0.09269161202546015 -0.7040610913422306 0.7040640913426198 -2.9567353071795863
+  translation 59.9362 0.2 -21.3779
+  rotation 0.9351124260663068 -0.25056311416434823 0.2505651141652595 1.63783
   children [
     Group {
       children [
@@ -413,8 +441,8 @@ DEF Poste_6 Solid {
   name "solid(6)"
 }
 DEF Poste_7 Solid {
-  translation 132.111 12.01 -178.759
-  rotation 0.18615605074009628 -0.6947451893649853 0.6947481893658031 2.77349
+  translation 58.9362 0.429993 -23.1091
+  rotation -0.9351130202419243 0.25056300542381216 -0.25056300542381216 -1.637825307179586
   children [
     Group {
       children [
@@ -476,8 +504,8 @@ DEF Poste_7 Solid {
   name "solid(7)"
 }
 DEF Poste_8 Solid {
-  translation 159.247 11.6299 -336.304
-  rotation 0.18615605074009628 -0.6947451893649853 0.6947481893658031 2.77349
+  translation 49.3229 -0.24 -74.352
+  rotation -0.5773489358550934 0.5773499358549823 -0.5773519358547601 -2.094395307179586
   children [
     Group {
       children [
@@ -539,8 +567,8 @@ DEF Poste_8 Solid {
   name "solid(8)"
 }
 DEF Poste_9 Solid {
-  translation 160.978 11.6299 -337.304
-  rotation 0.18615605074009628 -0.6947451893649853 0.6947481893658031 2.77349
+  translation 48.3229 -0.270007 -76.0842
+  rotation -0.9831055672070398 0.12942894302144423 -0.12942794302188446 -1.5878253071795863
   children [
     Group {
       children [
@@ -602,8 +630,8 @@ DEF Poste_9 Solid {
   name "solid(9)"
 }
 DEF Poste_10 Solid {
-  translation -27.4329 16.2904 -375.839
-  rotation 0.18615605074009628 -0.6947451893649853 0.6947481893658031 2.77349
+  translation -3.95811 -0.650597 -126.476
+  rotation -0.9351127859349406 -0.25056194264161724 0.25056494264093043 -1.637825307179586
   children [
     Group {
       children [
@@ -665,8 +693,8 @@ DEF Poste_10 Solid {
   name "solid(10)"
 }
 DEF Poste_11 Solid {
-  translation -28.4329 15.8404 -377.592
-  rotation -0.6776608267946584 0.5199878670947581 -0.5199888670945025 -1.9504353071795864
+  translation -5.77419 -0.650597 -125.925
+  rotation -0.6776599336401542 -0.5199869490802804 0.5199909490798887 -1.9504353071795864
   children [
     Group {
       children [
@@ -728,7 +756,7 @@ DEF Poste_11 Solid {
   name "solid(11)"
 }
 DEF Rover Robot {
-  translation 208.37 11.84 46.99
+  translation 0 -0.2 0
   rotation 0 0 1 0
   children [
     RangeFinder {
