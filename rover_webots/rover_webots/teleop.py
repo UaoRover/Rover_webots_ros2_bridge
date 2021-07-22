@@ -21,15 +21,6 @@ import sys,tty,termios
 class Teleop(Node):
     def __init__(self):
         super().__init__('teleop_cmdvel')
-        # Subscribe Infra Red sensors
-        self.subs_camera = self.create_subscription(
-            Image, 'img', self.camera_callback, 1)
-
-        # Publish cmd vel
-        self.pubs_cmdvel = self.create_publisher(Twist, 'cmd_vel', 1)
-
-        # Initialize parameters
-        self.Image_data=None
 
         self.cmd = Twist()
 
@@ -59,11 +50,6 @@ class Teleop(Node):
                 self.cmd.linear.x =0.0
                 self.pubs_cmdvel.publish(self.cmd)
                 break
-
-
-    # Call backs to update sensor reading variables
-    def camera_callback(self, msg):
-        self.Image_data = msg.data
 
 
 

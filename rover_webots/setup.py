@@ -10,23 +10,24 @@ data_files.append(('share/ament_index/resource_index/packages', [
     'resource/' + package_name
 ]))
 data_files.append(('share/' + package_name, [
-    'launch/demo_launch.py'
+    'launch/webots.py'
 ]))
 data_files.append(('share/' + package_name, [
-    'launch/rover_launch.py'
-]))
-data_files.append(('share/' + package_name + '/worlds', [
-    'worlds/Prueba_rover_1_sin_rocker.wbt'
+    'launch/rviz_webots_real.py'
 ]))
 data_files.append(('share/' + package_name, [
-    'launch/rectangle_launch.py'
+    'launch/obstaculos_rviz_webots.py'
 ]))
 data_files.append(('share/' + package_name + '/worlds', [
-    'worlds/Prueba de Visual.wbt'
+    'worlds/entorno_real.wbt'
+]))
+data_files.append(('share/' + package_name + '/worlds', [
+    'worlds/entorno_obstaculos.wbt'
 ]))
 data_files.append(('share/' + package_name + '/worlds/meshes', [
     'worlds/meshes/Terrain.stl'
 ]))
+
 
 data_files.append(('share/' + package_name, ['package.xml']))
 data_files.append(('share/ament_index/resource_index/packages',['resource/' + package_name]))
@@ -44,9 +45,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'publisher_vel = rover_webots.publisher_vel:main',
-            'master=rover_webots.master:main',
-            'slave=rover_webots.slave:main'
+            'teleop=rover_webots.teleop:main',
+            'main=rover_webots.main:main'
         ],
         'launch.frontend.launch_extension': ['launch_ros = launch_ros']
     }

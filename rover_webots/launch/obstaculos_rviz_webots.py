@@ -48,17 +48,12 @@ def generate_launch_description():
         ),
         launch_arguments=[
             ('package', 'rover_webots'),
-            ('executable', 'slave'),
+            ('executable', 'main'),
+            ('publish_tf','False'),
             ('world', PathJoinSubstitution(
-                [package_dir, 'worlds', 'Prueba_rover_1_sin_rocker.wbt'])),
+                [package_dir, 'worlds', 'entorno_obstaculos.wbt'])),
         ]
     )
-
-    master = Node(
-        package='rover_webots',
-        executable='master',
-        name='master_node'
-    )   
 
     return launch.LaunchDescription([
         launch.actions.DeclareLaunchArgument(name='gui', default_value='True',
@@ -72,5 +67,4 @@ def generate_launch_description():
         robot_state_publisher_node,
         rviz_node,
         webots,
-        master
     ])
