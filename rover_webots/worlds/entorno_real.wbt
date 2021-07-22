@@ -4,8 +4,8 @@ WorldInfo {
   coordinateSystem "NUE"
 }
 Viewpoint {
-  orientation 0.2595288869064136 -0.9654955412450206 0.021520146307649146 5.418669543814576
-  position 259.78371331251776 24.875450242424 91.34288615225513
+  orientation 0.36540062448661714 0.8771230411800908 0.3116689818634172 5.195057968277996
+  position 207.3006344105485 12.480665059285784 47.663108764943
   follow "solid"
   followType "None"
 }
@@ -731,9 +731,90 @@ DEF Rover Robot {
   translation 208.37 11.84 46.99
   rotation 0 0 1 0
   children [
+    RangeFinder {
+      translation -0.405 0.095 0
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 1 1 0
+          }
+          geometry Box {
+            size 0.01 0.01 0.01
+          }
+        }
+      ]
+      name "depth"
+    }
+    Lidar {
+      translation -0.22 0.125 0
+      rotation 0 -1 0 0
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0 1 1
+          }
+          geometry Cylinder {
+            height 0.05
+            radius 0.05
+          }
+        }
+      ]
+    }
+    Gyro {
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0 0 1
+          }
+          geometry Box {
+            size 0.01 0.01 0.01
+          }
+        }
+      ]
+    }
+    Accelerometer {
+      translation 0 0.105 0
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0 0 1
+          }
+          geometry Box {
+            size 0.01 0.01 0.01
+          }
+        }
+      ]
+    }
+    InertialUnit {
+      translation 0 0.105 0
+      children [
+        DEF imu Shape {
+          appearance PBRAppearance {
+            baseColor 0 0 1
+          }
+          geometry Box {
+            size 0.01 0.01 0.01
+          }
+        }
+      ]
+      name "imu"
+    }
+    GPS {
+      translation 0.1 0.105 0
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0 1 0
+          }
+          geometry Box {
+            size 0.01 0.01 0.01
+          }
+        }
+      ]
+    }
     Camera {
-      translation -0.39 0.11 -4.77598e-17
-      rotation 0 -1 0 -1.5707953071795862
+      translation -0.39 0.11 0
+      rotation 0 -1 0 -1.5707996938995747
       children [
         Shape {
           appearance PBRAppearance {
@@ -744,6 +825,42 @@ DEF Rover Robot {
           }
         }
       ]
+      width 1920
+      height 1080
+      far 2
+    }
+    Camera {
+      translation -0.405 0.095 -0.03
+      rotation 0 -1 0 -1.5707996938995747
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 1 0 0
+          }
+          geometry Box {
+            size 0.01 0.01 0.01
+          }
+        }
+      ]
+      name "camera_right"
+      width 1920
+      height 1080
+      far 2
+    }
+    Camera {
+      translation -0.405 0.095 0.03
+      rotation 0 -1 0 -1.5707996938995747
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 1 0 0
+          }
+          geometry Box {
+            size 0.01 0.01 0.01
+          }
+        }
+      ]
+      name "camera_left"
       width 1920
       height 1080
       far 2
