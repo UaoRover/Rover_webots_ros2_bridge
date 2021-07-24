@@ -22,6 +22,9 @@ class Teleop(Node):
     def __init__(self):
         super().__init__('teleop_cmdvel')
 
+                # Publish cmd vel
+        self.pubs_cmdvel = self.create_publisher(Twist, 'cmd_vel', 1)
+
         self.cmd = Twist()
 
         while True:

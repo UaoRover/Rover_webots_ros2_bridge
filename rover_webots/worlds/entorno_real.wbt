@@ -4,8 +4,8 @@ WorldInfo {
   coordinateSystem "NUE"
 }
 Viewpoint {
-  orientation 0.9110017487635147 -0.40120871176635414 -0.09543261157801677 5.772388627453566
-  position 51.51345385619567 94.52241906504884 157.30753145531872
+  orientation 0.8857763309684876 -0.4221475185031851 -0.19285166350749322 5.330856966822691
+  position 76.16261176067503 92.63590384337972 -53.08720934883958
   follow "solid"
   followType "None"
 }
@@ -798,7 +798,7 @@ DEF rock Solid {
   boundingObject USE rocks
 }
 DEF rock Solid {
-  translation -50.3012 -4.38 -44.876
+  translation -50.3012 -4.93 -44.876
   rotation 0 -1 0 1.0472
   scale 0.05 0.05 0.05
   children [
@@ -816,7 +816,7 @@ DEF rock Solid {
   boundingObject USE rocks
 }
 DEF rock Solid {
-  translation -50.3012 -4.38 -44.876
+  translation -53.6962 -5.28 -50.7564
   rotation 0 -1 0 1.0472
   scale 0.05 0.05 0.05
   children [
@@ -852,7 +852,7 @@ DEF rock Solid {
   boundingObject USE rocks
 }
 DEF rock Solid {
-  translation -67.6025 -4.38 -47.5438
+  translation -67.6025 -5.07 -47.5438
   rotation 0 1 0 0.261797
   scale 0.05 0.05 0.05
   children [
@@ -906,7 +906,7 @@ DEF rock Solid {
   boundingObject USE rocks
 }
 DEF rock Solid {
-  translation -20.5485 -3.87 -44.7663
+  translation -20.5485 -4.62 -44.7663
   rotation 0 1 0 -2.3561953071795863
   scale 0.05 0.05 0.05
   children [
@@ -978,7 +978,7 @@ DEF rock Solid {
   boundingObject USE rocks
 }
 DEF rock Solid {
-  translation -36.68 -4.18 -5.45
+  translation -36.68 -4.8 -4.83
   rotation 1 0 0 0
   scale 0.05 0.05 0.05
   children [
