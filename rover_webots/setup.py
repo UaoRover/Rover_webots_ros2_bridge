@@ -27,6 +27,9 @@ data_files.append(('share/' + package_name + '/worlds', [
 data_files.append(('share/' + package_name + '/worlds/meshes', [
     'worlds/meshes/Terrain.stl'
 ]))
+data_files.append(('share/' + package_name + '/worlds/meshes', [
+    'worlds/meshes/rock.obj'
+]))
 
 
 data_files.append(('share/' + package_name, ['package.xml']))
