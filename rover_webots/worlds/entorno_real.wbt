@@ -4,8 +4,8 @@ WorldInfo {
   coordinateSystem "NUE"
 }
 Viewpoint {
-  orientation 0.8857763309684876 -0.4221475185031851 -0.19285166350749322 5.330856966822691
-  position 76.16261176067503 92.63590384337972 -53.08720934883958
+  orientation 0.24517228463394564 0.9557454393240765 0.16260752153144495 5.069879784227974
+  position -1.365153606370019 0.20873456356081257 0.4006695487124378
   follow "solid"
   followType "None"
 }
@@ -1707,6 +1707,12 @@ DEF Rover Robot {
         }
       ]
       name "depth"
+      fieldOfView 1.5708
+      width 1344
+      height 376
+      minRange 0.3
+      maxRange 20
+      noise 0.01
     }
     Lidar {
       translation -0.22 0.125 0
@@ -1722,6 +1728,17 @@ DEF Rover Robot {
           }
         }
       ]
+      horizontalResolution 360
+      fieldOfView 6.28319
+      verticalFieldOfView 0.1
+      numberOfLayers 1
+      minRange 0.15
+      maxRange 12
+      noise 0.025
+      resolution 0.02
+      defaultFrequency 5.5
+      minFrequency 5.5
+      maxFrequency 10
     }
     Gyro {
       children [
@@ -1761,6 +1778,7 @@ DEF Rover Robot {
         }
       ]
       name "imu"
+      noise 0.05
     }
     GPS {
       translation 0.1 0.105 0
@@ -1774,6 +1792,8 @@ DEF Rover Robot {
           }
         }
       ]
+      accuracy 1.5
+      speedNoise 0.05
     }
     Camera {
       translation -0.39 0.11 0
@@ -1793,7 +1813,7 @@ DEF Rover Robot {
       far 2
     }
     Camera {
-      translation -0.405 0.095 -0.03
+      translation -0.405 0.095 -0.06
       rotation 0 -1 0 -1.5707996938995747
       children [
         Shape {
@@ -1811,7 +1831,7 @@ DEF Rover Robot {
       far 2
     }
     Camera {
-      translation -0.405 0.095 0.03
+      translation -0.405 0.095 0.06
       rotation 0 -1 0 -1.5707996938995747
       children [
         Shape {
