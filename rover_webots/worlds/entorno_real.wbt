@@ -4,8 +4,8 @@ WorldInfo {
   coordinateSystem "NUE"
 }
 Viewpoint {
-  orientation 0.24517228463394564 0.9557454393240765 0.16260752153144495 5.069879784227974
-  position -1.365153606370019 0.20873456356081257 0.4006695487124378
+  orientation -0.4956180954352123 0.8629499055161841 0.09838782468772204 0.45221804792773374
+  position 0.9453278802083928 0.1770692634828297 1.9576207388140172
   follow "solid"
   followType "None"
 }
@@ -1696,6 +1696,7 @@ DEF Rover Robot {
   children [
     RangeFinder {
       translation -0.405 0.095 0
+      rotation 0 1 0 1.5708
       children [
         Shape {
           appearance PBRAppearance {
@@ -1826,9 +1827,12 @@ DEF Rover Robot {
         }
       ]
       name "camera_right"
-      width 1920
-      height 1080
-      far 2
+      fieldOfView 1.51844
+      width 1344
+      height 376
+      near 0.5
+      far 20
+      noise 0.01
     }
     Camera {
       translation -0.405 0.095 0.06
@@ -1844,9 +1848,12 @@ DEF Rover Robot {
         }
       ]
       name "camera_left"
-      width 1920
-      height 1080
-      far 2
+      fieldOfView 1.51844
+      width 1344
+      height 376
+      near 0.5
+      far 20
+      noise 0.01
     }
     Solid {
       translation 0 0 0.33
