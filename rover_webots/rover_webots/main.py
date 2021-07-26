@@ -16,6 +16,15 @@ import rclpy
 from webots_ros2_core.webots_node import WebotsNode
 from geometry_msgs.msg import Twist
 from sensor_msgs.msg import Image
+from sensor_msgs.msg import NavSatFix, NavSatStatus
+from rclpy.time import Time
+from rclpy.qos import QoSReliabilityPolicy, qos_profile_sensor_data
+from sensor_msgs.msg import Imu
+from webots_ros2_core.math.interpolation import interpolate_lookup_table
+from sensor_msgs.msg import LaserScan, PointCloud2, PointField
+from tf2_ros import StaticTransformBroadcaster
+from geometry_msgs.msg import TransformStamped
+
 
 class ServiceNodeVelocity(WebotsNode):
     def __init__(self, args):
@@ -27,7 +36,8 @@ class ServiceNodeVelocity(WebotsNode):
         # Se crea un ROS2 service que capturará las datos de Webots
         self.sensor_timer = self.create_timer(
             0.001 * self.service_node_vel_timestep, self.sensor_callback)
-
+        
+	#-------------------------------
         #se utiliza el codigo de Webots para obtener el nombre del dispositivo https://cyberbotics.com/doc/reference/robot?tab-language=python#wb_robot_get_device
         self.camera = self.robot.getDevice(
             'camera')
@@ -35,9 +45,32 @@ class ServiceNodeVelocity(WebotsNode):
         self.camera.enable(self.service_node_vel_timestep)
 
         #Se crea un publisher del sensor, con el tipo de mensaje Image y el nombre img 
-        self.camera_publisher = self.create_publisher(
-            Image, 'img', 1)
-
+        self.camera_publisher = self.create_publisher(Image, 'img', 1)
+        #-------------------------------
+        self.camera_left = self.robot.getDevice( 'camera_left')
+        self.camera_left.enable(self.service_node_vel_timestep)
+        self.camera_left_publisher = self.create_publisher( Image, 'img_left', 1)
+        
+        self.camera_right = self.robot.getDevice('camera_right') 
+        self.camera_right.enable(self.service_node_vel_timestep)
+        self.camera_right_publisher = self.create_publisher( Image, 'img_right', 1)
+        
+        self.gps = self.robot.getDevice('gps') 
+        self.gps.enable(self.service_node_vel_timestep)
+        self.gps_publisher = self.create_publisher( NavSatFix, 'gps', 1)
+        #-------------------------------
+        self.acel = self.robot.getDevice( 'accelerometer')
+        self.gyro = self.robot.getDevice('gyro')
+        self.iu = self.robot.getDevice('imu')
+        self.acel.enable(self.service_node_vel_timestep)
+        self.gyro.enable(self.service_node_vel_timestep)
+        self.iu.enable(self.service_node_vel_timestep)
+        self.imu_publisher = self.create_publisher( Imu, 'imu', 1)
+        #-------------------------------
+        self.lidar = self.robot.getDevice('lidar')
+        self.lidar.enable(self.service_node_vel_timestep)
+        self.lidar_publisher = self.create_publisher(LaserScan, 'Lidar', 1)
+        #-------------------------------
         #mensaje en terminal
         self.get_logger().info('Sensor enabled')
 
@@ -85,9 +118,7 @@ class ServiceNodeVelocity(WebotsNode):
         self.der_boggie_directional_motor = self.robot.getDevice('der_boggie_directional')
         self.der_boggie_directional_motor.setPosition(float('inf'))
         self.der_boggie_directional_motor.setVelocity(0)                        
-        #Se obtiene la velocidad maxima de uno de los motores de Webots como referencia
-        self.motor_max_speed = self.rocker_right_motor.getMaxVelocity()
-
+       
         #Se crea un Suscriber del comando de velocidad con el tipo de mensaje Twist y de nombre cmd_vel, se pone un callback para que se ejecute cuando recibe el mensaje
         self.cmd_vel_subscriber = self.create_subscription(
             Twist, 'cmd_vel', self.cmdVel_callback, 1)
@@ -120,10 +151,12 @@ class ServiceNodeVelocity(WebotsNode):
 
     #callback del service
     def sensor_callback(self):
-
         #Se obtiene la imagen y se la da a la información del mensaje
         camera_data = self.camera.getImage()
-        
+        camera_data_left = self.camera_left.getImage()
+        camera_data_right = self.camera_right.getImage()
+
+
         # Se crea un objeto del mensaje Image
         msg = Image()
         msg.height = self.camera.getHeight()
@@ -133,12 +166,72 @@ class ServiceNodeVelocity(WebotsNode):
         msg.header.frame_id = 'camera'
         msg._data = camera_data
         msg.encoding = 'bgra8'
-
         #se publica el mensaje
         self.camera_publisher.publish(msg)
-
-
-
+        #-----------------------------------
+        msg_left = Image()
+        msg_left.height = self.camera_left.getHeight()
+        msg_left.width = self.camera_left.getWidth()
+        msg_left.is_bigendian = False
+        msg_left.step = self.camera_left.getWidth() * 4
+        msg_left.header.frame_id = 'camera_left'
+        msg_left._data = camera_data_left
+        msg_left.encoding = 'bgra8'
+        #se publica el mensaje
+        self.camera_left_publisher.publish(msg_left)
+        #-----------------------------------
+        msg_right = Image()
+        msg_right.height = self.camera_right.getHeight()
+        msg_right.width = self.camera_right.getWidth()
+        msg_right.is_bigendian = False
+        msg_right.step = self.camera_right.getWidth() * 4
+        msg_right.header.frame_id = 'camera_right'
+        msg_right._data = camera_data_right
+        msg_right.encoding = 'bgra8'
+        self.camera_right_publisher.publish(msg_right)
+        #-----------------------------------
+        msg_gps = NavSatFix()
+        msg_gps.header.stamp = self.get_clock().now().to_msg()
+        msg_gps.header.frame_id = 'gps'
+        msg_gps.latitude = self.gps.getValues()[0]
+        msg_gps.longitude = self.gps.getValues()[1]
+        msg_gps.altitude = self.gps.getValues()[2]
+        msg_gps.position_covariance_type = NavSatFix.COVARIANCE_TYPE_UNKNOWN
+        msg_gps.status.service = NavSatStatus.SERVICE_GPS
+        msg_gps.status.status = NavSatStatus.STATUS_FIX
+        self.gps_publisher.publish(msg_gps)
+        #----------------------------------------------------------------------------------
+        #----------------------------------------------------------------------------------
+        msg_imu = Imu()
+        msg_imu.header.stamp = self.get_clock().now().to_msg()
+        msg_imu.header.frame_id = 'imu'
+        gyro_data = self.gyro.getValues()
+        msg_imu.angular_velocity.x = interpolate_lookup_table(gyro_data[0], self.gyro.getLookupTable())
+        msg_imu.angular_velocity.y = interpolate_lookup_table(gyro_data[1], self.gyro.getLookupTable())
+        msg_imu.angular_velocity.z = interpolate_lookup_table(gyro_data[2], self.gyro.getLookupTable())
+        acel_data =self.acel.getValues()
+        msg_imu.linear_acceleration.x = interpolate_lookup_table(acel_data[0], self.acel.getLookupTable())
+        msg_imu.linear_acceleration.y = interpolate_lookup_table(acel_data[1], self.acel.getLookupTable())
+        msg_imu.linear_acceleration.z = interpolate_lookup_table(acel_data[2], self.acel.getLookupTable())
+        iu_data = self.iu.getQuaternion()
+        msg_imu.orientation.x = iu_data[0]
+        msg_imu.orientation.y = iu_data[1]
+        msg_imu.orientation.z = iu_data[2]
+        msg_imu.orientation.w = iu_data[3]
+        self.imu_publisher.publish(msg_imu)
+        #----------------------------------------------------------------------------------
+        ranges = self.lidar.getLayerRangeImage(0)
+        msg_lidar = LaserScan()
+        msg_lidar.header.stamp = self.get_clock().now().to_msg()
+        msg_lidar.header.frame_id = 'lidar'
+        msg_lidar.angle_min = -0.5 * self.lidar.getFov()
+        msg_lidar.angle_max = 0.5 *self.lidar.getFov()
+        msg_lidar.angle_increment = self.lidar.getFov() / (self.lidar.getHorizontalResolution() -1)
+        msg_lidar.scan_time = self.lidar.getSamplingPeriod() / 1000
+        msg_lidar.range_min = self.lidar.getMinRange() 
+        msg_lidar.range_max = self.lidar.getMaxRange() 
+        msg_lidar.ranges = ranges
+        self.lidar_publisher.publish(msg_lidar)
 
 def main(args=None):
     rclpy.init(args=args)
