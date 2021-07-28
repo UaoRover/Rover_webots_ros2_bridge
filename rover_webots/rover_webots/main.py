@@ -25,8 +25,7 @@ from sensor_msgs.msg import LaserScan, PointCloud2, PointField
 from tf2_ros import StaticTransformBroadcaster
 from geometry_msgs.msg import TransformStamped
 import numpy as np
-#from cv_bridge import Cv_Bridge, Cv_BridgeError
-import cv2
+
 
 
 
@@ -75,13 +74,10 @@ class ServiceNodeVelocity(WebotsNode):
         self.lidar.enable(self.service_node_vel_timestep)
         self.lidar_publisher = self.create_publisher(LaserScan, 'Lidar', 1)
         #-------------------------------
-        self.camera_deph = self.robot.getDevice('depth') 
-        self.camera_deph.enable(self.service_node_vel_timestep)
-        self.camera_deph_publisher = self.create_publisher( CameraInfo, 'Deph', 1)
-        #-------------------------------
-        self.camedep = self.robot.getDevice( 'depth')
-        self.camedep.enable(self.service_node_vel_timestep)
-        self.camedep_publisher = self.create_publisher( Image, 'camedep', 1)
+        self.camera_depth = self.robot.getDevice('depth') 
+        self.camera_depth.enable(self.service_node_vel_timestep)
+        self.camera_depth_publisher = self.create_publisher( CameraInfo, 'Depth', 1)
+        self.camdep_publisher = self.create_publisher( Image, 'camdepth', 1)
         #-------------------------------
 
         #-------------------------------
@@ -170,9 +166,9 @@ class ServiceNodeVelocity(WebotsNode):
         camera_data = self.camera.getImage()
         camera_data_left = self.camera_left.getImage()
         camera_data_right = self.camera_right.getImage()
-        camera_data_dep = np.array(self.camedep.getRangeImage(), dtype="float32").tobytes()
-        #camera_data_dep = self.camedep.getRangeImage(buffer)
-        #camera_data_dep = np.matrix(self.camedep.getRangeImage(), dtype="float32").tobytes()
+        camera_data_depth = np.array(self.camera_depth.getRangeImage(), dtype="float32").tobytes()
+
+
 
 
 
@@ -184,7 +180,7 @@ class ServiceNodeVelocity(WebotsNode):
         msg.step = self.camera.getWidth() * 4
         msg.header.frame_id = 'camera'
         msg._data = camera_data
-        msg.encoding = 'mono8'
+        msg.encoding = 'bgra8'
         #se publica el mensaje
         self.camera_publisher.publish(msg)
         #-----------------------------------
@@ -252,28 +248,25 @@ class ServiceNodeVelocity(WebotsNode):
         msg_lidar.ranges = ranges
         self.lidar_publisher.publish(msg_lidar)
         #-----------------------------------------------------------------------------------
-        msg_deph = CameraInfo()
-        msg_deph.header.stamp = self.get_clock().now().to_msg()
-        msg_deph.header.frame_id = 'deph'
-        msg_deph.height = self.camera_deph.getHeight()
-        msg_deph.width = self.camera_deph.getWidth()
-        self.camera_deph_publisher.publish(msg_deph)
+        msg_detph = CameraInfo()
+        msg_detph.header.stamp = self.get_clock().now().to_msg()
+        msg_detph.header.frame_id = 'detph'
+        msg_detph.height = self.camera_depth.getHeight()
+        msg_detph.width = self.camera_depth.getWidth()
+        self.camera_depth_publisher.publish(msg_detph)
         
-        
-        msg_camedep = Image()
-        msg_camedep.height = self.camedep.getHeight()
-        msg_camedep.width = self.camedep.getWidth()
-        msg_camedep.is_bigendian = False
-        msg_camedep.step = self.camedep.getWidth() * 4
-        msg_camedep.header.frame_id = 'deph'
-        msg_camedep._data = camera_data_dep
-        msg_camedep.encoding = 'bgra8'
-        caco = msg_camedep
-        self.get_logger().info(str(caco))
-        #self.bridge = Cv_Bridge()
-        #msg_camedep2 = self.bridge.imgmsg_to_cv2(msg_camedep, "mono8")
-        self.camedep_publisher.publish(msg_camedep)
-        
+        msg_camdepth = Image()
+        msg_camdepth.header.stamp = self.get_clock().now().to_msg()
+        msg_camdepth.height = self.camera_depth.getHeight()
+        msg_camdepth.width = self.camera_depth.getWidth()
+        msg_camdepth.is_bigendian = False
+        msg_camdepth.step = self.camera_depth.getWidth() * 4
+        msg_camdepth.header.frame_id = 'depth'
+        msg_camdepth._data = camera_data_depth
+        msg_camdepth.encoding = '32FC1'
+
+        self.camdep_publisher.publish(msg_camdepth)
+
 
 	
                

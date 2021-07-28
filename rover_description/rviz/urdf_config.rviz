@@ -6,10 +6,10 @@ Panels:
       Expanded:
         - /Global Options1
         - /Status1
-        - /RobotModel1/Links1
         - /TF1
+        - /Image1/Topic1
       Splitter Ratio: 0.5
-    Tree Height: 557
+    Tree Height: 544
 Visualization Manager:
   Class: ""
   Displays:
@@ -18,9 +18,24 @@ Visualization Manager:
       Class: rviz_default_plugins/Grid
       Color: 160; 160; 164
       Enabled: true
+      Line Style:
+        Line Width: 0.029999999329447746
+        Value: Lines
       Name: Grid
-    - Alpha: 0.6
+      Normal Cell Count: 0
+      Offset:
+        X: 0
+        Y: 0
+        Z: 0
+      Plane: XY
+      Plane Cell Count: 10
+      Reference Frame: <Fixed Frame>
+      Value: true
+    - Alpha: 0.6000000238418579
       Class: rviz_default_plugins/RobotModel
+      Collision Enabled: false
+      Description File: ""
+      Description Source: Topic
       Description Topic:
         Depth: 5
         Durability Policy: Volatile
@@ -28,15 +43,350 @@ Visualization Manager:
         Reliability Policy: Reliable
         Value: /robot_description
       Enabled: true
+      Links:
+        All Links Enabled: true
+        Expand Joint Details: false
+        Expand Link Details: false
+        Expand Tree: false
+        Link Tree Style: Links in Alphabetic Order
+        base_footprint:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        base_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        boogie_dir_l_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        boogie_dir_r_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        boogie_mid_l_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        boogie_mid_r_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        camera:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        camera_left:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        camera_right:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        depth:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        dir_boogie_l_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        dir_boogie_r_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        dir_mid_l_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        dir_mid_r_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        dir_rocker_l_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        dir_rocker_r_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        gps:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        imu:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        lidar:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        rocker_boogie_l_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        rocker_boogie_r_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        rocker_l_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        rocker_r_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        wheel_boogie_dir_l_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        wheel_boogie_dir_r_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        wheel_mid_l_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        wheel_mid_r_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        wheel_rocker_dir_l_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        wheel_rocker_dir_r_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
       Name: RobotModel
+      TF Prefix: ""
+      Update Interval: 0
+      Value: true
       Visual Enabled: true
     - Class: rviz_default_plugins/TF
       Enabled: true
+      Frame Timeout: 15
+      Frames:
+        All Enabled: true
+        base_footprint:
+          Value: true
+        base_link:
+          Value: true
+        boogie_dir_l_link:
+          Value: true
+        boogie_dir_r_link:
+          Value: true
+        boogie_mid_l_link:
+          Value: true
+        boogie_mid_r_link:
+          Value: true
+        camera:
+          Value: true
+        camera_left:
+          Value: true
+        camera_right:
+          Value: true
+        depth:
+          Value: true
+        dir_boogie_l_link:
+          Value: true
+        dir_boogie_r_link:
+          Value: true
+        dir_mid_l_link:
+          Value: true
+        dir_mid_r_link:
+          Value: true
+        dir_rocker_l_link:
+          Value: true
+        dir_rocker_r_link:
+          Value: true
+        gps:
+          Value: true
+        imu:
+          Value: true
+        lidar:
+          Value: true
+        rocker_boogie_l_link:
+          Value: true
+        rocker_boogie_r_link:
+          Value: true
+        rocker_l_link:
+          Value: true
+        rocker_r_link:
+          Value: true
+        wheel_boogie_dir_l_link:
+          Value: true
+        wheel_boogie_dir_r_link:
+          Value: true
+        wheel_mid_l_link:
+          Value: true
+        wheel_mid_r_link:
+          Value: true
+        wheel_rocker_dir_l_link:
+          Value: true
+        wheel_rocker_dir_r_link:
+          Value: true
+      Marker Scale: 0.30000001192092896
       Name: TF
-      Marker Scale: 0.3
       Show Arrows: true
       Show Axes: true
       Show Names: true
+      Tree:
+        base_link:
+          base_footprint:
+            {}
+          camera:
+            {}
+          camera_left:
+            {}
+          camera_right:
+            {}
+          depth:
+            {}
+          gps:
+            {}
+          imu:
+            {}
+          lidar:
+            {}
+          rocker_l_link:
+            dir_rocker_l_link:
+              wheel_rocker_dir_l_link:
+                {}
+            rocker_boogie_l_link:
+              boogie_mid_l_link:
+                boogie_dir_l_link:
+                  dir_boogie_l_link:
+                    wheel_boogie_dir_l_link:
+                      {}
+                dir_mid_l_link:
+                  wheel_mid_l_link:
+                    {}
+          rocker_r_link:
+            dir_rocker_r_link:
+              wheel_rocker_dir_r_link:
+                {}
+            rocker_boogie_r_link:
+              boogie_mid_r_link:
+                boogie_dir_r_link:
+                  dir_boogie_r_link:
+                    wheel_boogie_dir_r_link:
+                      {}
+                dir_mid_r_link:
+                  wheel_mid_r_link:
+                    {}
+      Update Interval: 0
+      Value: true
+    - Class: rviz_default_plugins/Image
+      Enabled: true
+      Max Value: 255
+      Median window: 5
+      Min Value: 0
+      Name: Image
+      Normalize Range: false
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /camdepth
+      Value: true
+    - Alpha: 1
+      Autocompute Intensity Bounds: true
+      Autocompute Value Bounds:
+        Max Value: 11.698516845703125
+        Min Value: 4.950075626373291
+        Value: true
+      Axis: X
+      Channel Name: intensity
+      Class: rviz_default_plugins/LaserScan
+      Color: 255; 255; 255
+      Color Transformer: AxisColor
+      Decay Time: 0
+      Enabled: true
+      Invert Rainbow: false
+      Max Color: 255; 255; 255
+      Max Intensity: 4096
+      Min Color: 0; 0; 0
+      Min Intensity: 0
+      Name: LaserScan
+      Position Transformer: XYZ
+      Selectable: true
+      Size (Pixels): 3
+      Size (m): 0.009999999776482582
+      Style: Points
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /Lidar
+      Use Fixed Frame: true
+      Use rainbow: true
+      Value: true
+    - Class: rviz_default_plugins/Image
+      Enabled: true
+      Max Value: 1
+      Median window: 5
+      Min Value: 0
+      Name: Image
+      Normalize Range: true
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /img_left
+      Value: true
+    - Class: rviz_default_plugins/Image
+      Enabled: true
+      Max Value: 1
+      Median window: 5
+      Min Value: 0
+      Name: Image
+      Normalize Range: true
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /img_right
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -58,7 +408,35 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
+      Distance: 20.5603084564209
+      Enable Stereo Rendering:
+        Stereo Eye Separation: 0.05999999865889549
+        Stereo Focal Distance: 1
+        Swap Stereo Eyes: false
+        Value: false
+      Focal Point:
+        X: 0
+        Y: 0
+        Z: 0
+      Focal Shape Fixed Size: true
+      Focal Shape Size: 0.05000000074505806
+      Invert Z Axis: false
       Name: Current View
+      Near Clip Distance: 0.009999999776482582
+      Pitch: 0.7703981399536133
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
+      Yaw: 2.845405340194702
     Saved: ~
+Window Geometry:
+  Displays:
+    collapsed: false
+  Height: 1013
+  Hide Left Dock: false
+  Hide Right Dock: false
+  Image:
+    collapsed: false
+  QMainWindow State: 000000ff00000000fd0000000200000000000001c0000002abfc0200000001fb000000100044006900730070006c006100790073010000012d000002ab000000c900ffffff0000000200000690000000eafc0100000003fb0000000a0049006d0061006700650100000000000001120000005e00fffffffb0000000a0049006d0061006700650100000118000004150000005e00fffffffb0000000a0049006d00610067006501000005330000015d0000005e00ffffff000004ca000002ab00000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  Width: 1680
+  X: 1920
+  Y: 0

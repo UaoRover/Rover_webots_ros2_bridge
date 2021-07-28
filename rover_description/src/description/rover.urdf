@@ -85,7 +85,7 @@
 
 
 
-    <link name="deph">
+    <link name="depth">
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
@@ -97,9 +97,9 @@
     </visual>
   </link>
 
-  <joint name="deph_joint" type="fixed">
+  <joint name="depth_joint" type="fixed">
     <parent link="base_link"/>
-    <child link="deph"/>
+    <child link="depth"/>
     <origin xyz="0.405 0.0 ${height+0.095}" rpy="0 0 0"/>
   </joint>
 

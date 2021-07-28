@@ -49,7 +49,7 @@ setup(
     entry_points={
         'console_scripts': [
             'teleop=rover_webots.teleop:main',
-            'main=rover_webots.main:main'
+            'main=rover_webots.main:main',
         ],
         'launch.frontend.launch_extension': ['launch_ros = launch_ros']
     }
