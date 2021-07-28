@@ -10,13 +10,13 @@ data_files.append(('share/ament_index/resource_index/packages', [
     'resource/' + package_name
 ]))
 data_files.append(('share/' + package_name, [
-    'launch/webots.py'
+    'launch/webots.launch.py'
 ]))
 data_files.append(('share/' + package_name, [
-    'launch/rviz_webots_real.py'
+    'launch/rviz_webots_real.launch.py'
 ]))
 data_files.append(('share/' + package_name, [
-    'launch/obstaculos_rviz_webots.py'
+    'launch/obstaculos_rviz_webots.launch.py'
 ]))
 data_files.append(('share/' + package_name + '/worlds', [
     'worlds/entorno_real.wbt'
