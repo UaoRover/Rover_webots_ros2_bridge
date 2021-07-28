@@ -41,23 +41,7 @@
 
 
 
-  <link name="camera">
-    <visual>
-      <origin xyz="0 0 0" rpy="0 0 0" />
-      <geometry>
-        <box size="0.02 0.02 0.02"/>
-      </geometry>
-      <material name="Cyan">
-        <color rgba="0 1.0 1.0 1.0"/>
-      </material>
-    </visual>
-  </link>
 
-  <joint name="camera_joint" type="fixed">
-    <parent link="base_link"/>
-    <child link="camera"/>
-    <origin xyz="0.39 0.0 ${height+0.11}" rpy="0 0 0"/>
-  </joint>
 
 
 

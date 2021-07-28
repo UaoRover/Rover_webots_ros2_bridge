@@ -4,8 +4,8 @@ WorldInfo {
   coordinateSystem "NUE"
 }
 Viewpoint {
-  orientation -0.6490866533516199 0.5335181695134579 0.5422590517822671 2.0049201365316054
-  position -0.3565075252649278 4.079309228208154 0.13994607438044646
+  orientation -0.8383586423812317 0.45606655505794214 0.2985935098127207 0.4709131323521154
+  position 3.648350141100251 6.593534618431033 15.304878707093444
   follow "solid"
   followType "None"
 }
@@ -1713,7 +1713,7 @@ DEF Rover Robot {
       height 376
       minRange 0.3
       maxRange 20
-      noise 0.01
+      noise 1
     }
     Lidar {
       translation -0.22 0.125 0
@@ -1795,23 +1795,6 @@ DEF Rover Robot {
       ]
       accuracy 1.5
       speedNoise 0.05
-    }
-    Camera {
-      translation -0.39 0.11 0
-      rotation 0 -1 0 -1.5707996938995747
-      children [
-        Shape {
-          appearance PBRAppearance {
-            baseColor 1 0 0
-          }
-          geometry Box {
-            size 0.02 0.02 0.02
-          }
-        }
-      ]
-      width 1920
-      height 1080
-      far 2
     }
     Camera {
       translation -0.405 0.095 -0.06

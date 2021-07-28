@@ -40,15 +40,6 @@ class ServiceNodeVelocity(WebotsNode):
         self.sensor_timer = self.create_timer(
             0.001 * self.service_node_vel_timestep, self.sensor_callback)
         
-	#-------------------------------
-        #se utiliza el codigo de Webots para obtener el nombre del dispositivo https://cyberbotics.com/doc/reference/robot?tab-language=python#wb_robot_get_device
-        self.camera = self.robot.getDevice(
-            'camera')
-        #Se habilita el respectivo dispositivo, en este caso la camara
-        self.camera.enable(self.service_node_vel_timestep)
-
-        #Se crea un publisher del sensor, con el tipo de mensaje Image y el nombre img 
-        self.camera_publisher = self.create_publisher(Image, 'img', 1)
         #-------------------------------
         self.camera_left = self.robot.getDevice( 'camera_left')
         self.camera_left.enable(self.service_node_vel_timestep)
@@ -136,18 +127,7 @@ class ServiceNodeVelocity(WebotsNode):
 
     #callback del suscriber
     def cmdVel_callback(self, msg):
-        #calculo de Cinematica
-        #wheel_gap = 0.1  # in meter
-        #wheel_radius = 0.04  # in meter
 
-        #left_speed = ((2.0 * msg.linear.x - msg.angular.z *
-        #               wheel_gap) / (2.0 * wheel_radius))
-        #right_speed = ((2.0 * msg.linear.x + msg.angular.z *
-        #                wheel_gap) / (2.0 * wheel_radius))
-        #left_speed = min(self.motor_max_speed,
-        #                 max(-self.motor_max_speed, left_speed))
-        #right_speed = min(self.motor_max_speed,
-        #                  max(-self.motor_max_speed, right_speed))
         #se envia la velocidad a las llantas
         self.boggie_left_motor.setVelocity(msg.linear.x)
         self.middle_left_motor.setVelocity(msg.linear.x)
@@ -163,26 +143,12 @@ class ServiceNodeVelocity(WebotsNode):
     #callback del service
     def sensor_callback(self):
         #Se obtiene la imagen y se la da a la información del mensaje
-        camera_data = self.camera.getImage()
+
         camera_data_left = self.camera_left.getImage()
         camera_data_right = self.camera_right.getImage()
         camera_data_depth = np.array(self.camera_depth.getRangeImage(), dtype="float32").tobytes()
 
 
-
-
-
-        # Se crea un objeto del mensaje Image
-        msg = Image()
-        msg.height = self.camera.getHeight()
-        msg.width = self.camera.getWidth()
-        msg.is_bigendian = False
-        msg.step = self.camera.getWidth() * 4
-        msg.header.frame_id = 'camera'
-        msg._data = camera_data
-        msg.encoding = 'bgra8'
-        #se publica el mensaje
-        self.camera_publisher.publish(msg)
         #-----------------------------------
         msg_left = Image()
         msg_left.height = self.camera_left.getHeight()

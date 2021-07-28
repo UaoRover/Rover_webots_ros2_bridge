@@ -4,8 +4,8 @@ WorldInfo {
   coordinateSystem "NUE"
 }
 Viewpoint {
-  orientation 0.31716962992131603 -0.9461238471762251 -0.06521573169132235 5.189608056822211
-  position 7.067322556327766 2.9966581619118586 5.050404571048621
+  orientation 0.7734663858735192 -0.6170885158965254 -0.144746376370464 5.694290764614557
+  position 7.429612453260069 15.375585435737317 24.253222993442346
   follow "solid"
   followType "None"
 }
@@ -14,12 +14,44 @@ TexturedBackground {
 TexturedBackgroundLight {
 }
 RectangleArena {
-  translation 0 -0.48 0
-  floorSize 20 20
+  translation -8.89 0 -3.98
+  floorSize 50 50
+  floorTileSize 10 10
+}
+Pine {
+  translation -8.78 -6.29 2.83001
+  rotation 0 1 0 -1.5707953071795862
+  name "pine tree(10)"
+}
+BigSassafras {
+  translation -2.5 -10.74 3.68
+  name "sassafras tree(9)"
+}
+Pedestrian {
+  translation -2.68 1.3 -2.2
+  name "pedestrian(11)"
+}
+DEF rock Solid {
+  translation -9.43 0 -16.71
+  rotation 1 0 0 0
+  scale 0.05 0.05 0.05
+  children [
+    DEF rocks Shape {
+      appearance Soil {
+      }
+      geometry Mesh {
+        url [
+          "meshes/rock.obj"
+        ]
+      }
+    }
+  ]
+  name "rock(1)"
+  boundingObject USE rocks
 }
 DEF Poste_1 Solid {
-  translation -2.07 0.17 -1.33632e-07
-  rotation 0.9999999999999998 9.589789999999996e-09 -9.589759999999998e-09 1.5707953071795862
+  translation -3.36 0.82 3.01204e-06
+  rotation 1 0 0 1.5708
   children [
     Group {
       children [
@@ -81,8 +113,8 @@ DEF Poste_1 Solid {
   ]
 }
 DEF Poste_2 Solid {
-  translation -3.8 0.07 1.51035e-09
-  rotation -1 -9.58979e-09 9.58976e-09 -1.5707953071795862
+  translation -4.56 0.8 2.93847e-06
+  rotation 1 0 0 1.5708
   children [
     Group {
       children [
@@ -145,8 +177,8 @@ DEF Poste_2 Solid {
   name "solid(2)"
 }
 DEF Poste_3 Solid {
-  translation -5.6 -1.13229e-13 1.07415e-07
-  rotation -1 -9.58979e-09 9.58976e-09 -1.5707953071795862
+  translation -5.94 0.78 2.86499e-06
+  rotation 1 0 0 1.5708
   children [
     Group {
       children [
@@ -209,8 +241,8 @@ DEF Poste_3 Solid {
   name "solid(3)"
 }
 DEF Poste_4 Solid {
-  translation -4.47725 -5.10191e-06 -2.585
-  rotation 0.9351130202419243 -0.25056300542381216 0.25056300542381216 1.63783
+  translation -6.99 0.79 2.90184e-06
+  rotation 1 0 0 1.5708
   children [
     Group {
       children [
@@ -272,8 +304,8 @@ DEF Poste_4 Solid {
   name "solid(4)"
 }
 DEF Poste_5 Solid {
-  translation -4.48193 -1.01488e-05 -1.20086
-  rotation -0.09269161202546015 -0.7040610913422306 0.7040640913426198 -2.9567353071795863
+  translation -8.09 0.79 2.9018e-06
+  rotation 1 0 0 1.5708
   children [
     Group {
       children [
@@ -335,8 +367,8 @@ DEF Poste_5 Solid {
   name "solid(5)"
 }
 DEF Poste_6 Solid {
-  translation -2.50411 -1.3968e-05 -2.55499
-  rotation -0.09269161202546015 -0.7040610913422306 0.7040640913426198 -2.9567353071795863
+  translation -9.07 0.82 3.012e-06
+  rotation 1 0 0 1.5708
   children [
     Group {
       children [
@@ -398,8 +430,8 @@ DEF Poste_6 Solid {
   name "solid(6)"
 }
 DEF Poste_7 Solid {
-  translation -2.28 -1.49807e-05 -3.94899
-  rotation 0.18615605074009628 -0.6947451893649853 0.6947481893658031 2.77349
+  translation -10.04 0.79 2.90183e-06
+  rotation 1 0 0 1.5708
   children [
     Group {
       children [
@@ -461,8 +493,8 @@ DEF Poste_7 Solid {
   name "solid(7)"
 }
 DEF Poste_8 Solid {
-  translation -3.60261 1.6041e-05 2.08
-  rotation 0.18615605074009628 -0.6947451893649853 0.6947481893658031 2.77349
+  translation -11.28 0.83 3.04873e-06
+  rotation 1 0 0 1.5708
   children [
     Group {
       children [
@@ -524,8 +556,8 @@ DEF Poste_8 Solid {
   name "solid(8)"
 }
 DEF Poste_9 Solid {
-  translation -3.09393 1.92899e-05 2.941
-  rotation 0.18615605074009628 -0.6947451893649853 0.6947481893658031 2.77349
+  translation -12.64 0.78 2.86511e-06
+  rotation 1 0 0 1.5708
   children [
     Group {
       children [
@@ -587,8 +619,8 @@ DEF Poste_9 Solid {
   name "solid(9)"
 }
 DEF Poste_10 Solid {
-  translation 2.03513 -9.06075e-06 -1.175
-  rotation 0.18615605074009628 -0.6947451893649853 0.6947481893658031 2.77349
+  translation -13.72 0.82 3.01204e-06
+  rotation 1 0 0 1.5708
   children [
     Group {
       children [
@@ -650,8 +682,8 @@ DEF Poste_10 Solid {
   name "solid(10)"
 }
 DEF Poste_11 Solid {
-  translation 1.79912 -1.73617e-05 -2.48033
-  rotation -0.6776608267946584 0.5199878670947581 -0.5199888670945025 -1.9504353071795864
+  translation -14.28 0.8 -4.77516e-07
+  rotation 1 0 0 1.5708
   children [
     Group {
       children [
@@ -713,24 +745,152 @@ DEF Poste_11 Solid {
   name "solid(11)"
 }
 DEF Rover Robot {
+  translation 0 0.48 0
   rotation 0 0 1 0
   children [
+    RangeFinder {
+      translation -0.405 0.095 0
+      rotation 0 1 0 1.5708
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 1 1 0
+          }
+          geometry Box {
+            size 0.01 0.01 0.01
+          }
+        }
+      ]
+      name "depth"
+      fieldOfView 1.5708
+      width 1344
+      height 376
+      minRange 0.3
+      maxRange 20
+      noise 1
+    }
+    Lidar {
+      translation -0.22 0.125 0
+      rotation -0.7071067811859252 1.326789589425184e-06 -0.7071067811859252 3.14159
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0 1 1
+          }
+          geometry Cylinder {
+            height 0.05
+            radius 0.05
+          }
+        }
+      ]
+      horizontalResolution 360
+      fieldOfView 6.28319
+      verticalFieldOfView 0.1
+      numberOfLayers 1
+      minRange 0.15
+      maxRange 12
+      noise 0.025
+      resolution 0.02
+      defaultFrequency 5.5
+      minFrequency 5.5
+      maxFrequency 10
+    }
+    Gyro {
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0 0 1
+          }
+          geometry Box {
+            size 0.01 0.01 0.01
+          }
+        }
+      ]
+    }
+    Accelerometer {
+      translation 0 0.105 0
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0 0 1
+          }
+          geometry Box {
+            size 0.01 0.01 0.01
+          }
+        }
+      ]
+    }
+    InertialUnit {
+      translation 0 0.105 0
+      children [
+        DEF imu Shape {
+          appearance PBRAppearance {
+            baseColor 0 0 1
+          }
+          geometry Box {
+            size 0.01 0.01 0.01
+          }
+        }
+      ]
+      name "imu"
+      noise 0.05
+    }
+    GPS {
+      translation 0.1 0.105 0
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0 1 0
+          }
+          geometry Box {
+            size 0.01 0.01 0.01
+          }
+        }
+      ]
+      accuracy 1.5
+      speedNoise 0.05
+    }
     Camera {
-      translation -0.39 0.11 -4.77598e-17
-      rotation 0 -1 0 -1.5707953071795862
+      translation -0.405 0.095 -0.06
+      rotation 0 -1 0 -1.5707996938995747
       children [
         Shape {
           appearance PBRAppearance {
             baseColor 1 0 0
           }
           geometry Box {
-            size 0.02 0.02 0.02
+            size 0.01 0.01 0.01
           }
         }
       ]
-      width 1920
-      height 1080
-      far 2
+      name "camera_right"
+      fieldOfView 1.51844
+      width 1344
+      height 376
+      near 0.5
+      far 20
+      noise 0.01
+    }
+    Camera {
+      translation -0.405 0.095 0.06
+      rotation 0 -1 0 -1.5707996938995747
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 1 0 0
+          }
+          geometry Box {
+            size 0.01 0.01 0.01
+          }
+        }
+      ]
+      name "camera_left"
+      fieldOfView 1.51844
+      width 1344
+      height 376
+      near 0.5
+      far 20
+      noise 0.01
     }
     Solid {
       translation 0 0 0.33

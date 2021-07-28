@@ -7,6 +7,7 @@ Panels:
         - /Global Options1
         - /Status1
         - /TF1
+        - /Image1
         - /Image1/Topic1
       Splitter Ratio: 0.5
     Tree Height: 544
@@ -74,11 +75,6 @@ Visualization Manager:
           Show Trail: false
           Value: true
         boogie_mid_r_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        camera:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -215,8 +211,6 @@ Visualization Manager:
           Value: true
         boogie_mid_r_link:
           Value: true
-        camera:
-          Value: true
         camera_left:
           Value: true
         camera_right:
@@ -270,8 +264,6 @@ Visualization Manager:
         base_link:
           base_footprint:
             {}
-          camera:
-            {}
           camera_left:
             {}
           camera_right:
@@ -314,13 +306,13 @@ Visualization Manager:
       Value: true
     - Class: rviz_default_plugins/Image
       Enabled: true
-      Max Value: 255
-      Median window: 5
-      Min Value: 0
+      Max Value: 20
+      Median window: 4
+      Min Value: 0.30000001192092896
       Name: Image
       Normalize Range: false
       Topic:
-        Depth: 5
+        Depth: 1
         Durability Policy: Volatile
         History Policy: Keep Last
         Reliability Policy: Reliable
@@ -329,7 +321,7 @@ Visualization Manager:
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
-        Max Value: 11.698516845703125
+        Max Value: 11.677896499633789
         Min Value: 4.950075626373291
         Value: true
       Axis: X
