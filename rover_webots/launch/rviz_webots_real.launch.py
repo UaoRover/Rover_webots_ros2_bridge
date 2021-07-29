@@ -7,7 +7,8 @@ from launch.actions import IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch import LaunchDescription
 from ament_index_python.packages import get_package_share_directory
-from launch_ros.actions import Node
+import launch_ros.actions
+import launch_ros.descriptions
 
 
 
@@ -66,5 +67,25 @@ def generate_launch_description():
         joint_state_publisher_gui_node,
         robot_state_publisher_node,
         rviz_node,
-        webots
+        webots,
+
+        launch_ros.actions.ComposableNodeContainer(
+            name='container',
+            namespace='',
+            package='rclcpp_components',
+            executable='component_container',
+            composable_node_descriptions=[
+                # Driver itself
+                launch_ros.descriptions.ComposableNode(
+                    package='depth_image_proc',
+                    plugin='depth_image_proc::PointCloudXyzrgbNode',
+                    name='point_cloud_xyzrgb_node',
+                    remappings=[('rgb/camera_info', 'depth_info'),
+                                ('rgb/image_rect_color', 'img_left'),
+                                ('depth_registered/image_rect','img_depth'),
+                                ('points', '/pointcloud')]
+                ),
+            ],
+            output='screen',
+        ),
     ])

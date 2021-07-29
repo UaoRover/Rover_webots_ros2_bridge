@@ -63,12 +63,12 @@ class ServiceNodeVelocity(WebotsNode):
         #-------------------------------
         self.lidar = self.robot.getDevice('lidar')
         self.lidar.enable(self.service_node_vel_timestep)
-        self.lidar_publisher = self.create_publisher(LaserScan, 'Lidar', 1)
+        self.lidar_publisher = self.create_publisher(LaserScan, 'lidar', 1)
         #-------------------------------
         self.camera_depth = self.robot.getDevice('depth') 
         self.camera_depth.enable(self.service_node_vel_timestep)
-        self.camera_depth_publisher = self.create_publisher( CameraInfo, 'Depth', 1)
-        self.camdep_publisher = self.create_publisher( Image, 'camdepth', 1)
+        self.camera_depth_publisher = self.create_publisher( CameraInfo, 'depth_info', 1)
+        self.camdep_publisher = self.create_publisher( Image, 'img_depth', 1)
         #-------------------------------
 
         #-------------------------------

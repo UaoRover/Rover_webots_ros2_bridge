@@ -7,10 +7,9 @@ Panels:
         - /Global Options1
         - /Status1
         - /TF1
-        - /Image1
-        - /Image1/Topic1
+        - /Right_img1
       Splitter Ratio: 0.5
-    Tree Height: 544
+    Tree Height: 547
 Visualization Manager:
   Class: ""
   Displays:
@@ -306,57 +305,10 @@ Visualization Manager:
       Value: true
     - Class: rviz_default_plugins/Image
       Enabled: true
-      Max Value: 20
-      Median window: 4
-      Min Value: 0.30000001192092896
-      Name: Image
-      Normalize Range: false
-      Topic:
-        Depth: 1
-        Durability Policy: Volatile
-        History Policy: Keep Last
-        Reliability Policy: Reliable
-        Value: /camdepth
-      Value: true
-    - Alpha: 1
-      Autocompute Intensity Bounds: true
-      Autocompute Value Bounds:
-        Max Value: 11.677896499633789
-        Min Value: 4.950075626373291
-        Value: true
-      Axis: X
-      Channel Name: intensity
-      Class: rviz_default_plugins/LaserScan
-      Color: 255; 255; 255
-      Color Transformer: AxisColor
-      Decay Time: 0
-      Enabled: true
-      Invert Rainbow: false
-      Max Color: 255; 255; 255
-      Max Intensity: 4096
-      Min Color: 0; 0; 0
-      Min Intensity: 0
-      Name: LaserScan
-      Position Transformer: XYZ
-      Selectable: true
-      Size (Pixels): 3
-      Size (m): 0.009999999776482582
-      Style: Points
-      Topic:
-        Depth: 5
-        Durability Policy: Volatile
-        History Policy: Keep Last
-        Reliability Policy: Reliable
-        Value: /Lidar
-      Use Fixed Frame: true
-      Use rainbow: true
-      Value: true
-    - Class: rviz_default_plugins/Image
-      Enabled: true
       Max Value: 1
       Median window: 5
       Min Value: 0
-      Name: Image
+      Name: Depth_img
       Normalize Range: true
       Topic:
         Depth: 5
@@ -370,7 +322,7 @@ Visualization Manager:
       Max Value: 1
       Median window: 5
       Min Value: 0
-      Name: Image
+      Name: Right_img
       Normalize Range: true
       Topic:
         Depth: 5
@@ -378,6 +330,53 @@ Visualization Manager:
         History Policy: Keep Last
         Reliability Policy: Reliable
         Value: /img_right
+      Value: true
+    - Class: rviz_default_plugins/Image
+      Enabled: true
+      Max Value: 20
+      Median window: 5
+      Min Value: 0
+      Name: Left_img
+      Normalize Range: false
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /img_depth
+      Value: true
+    - Alpha: 1
+      Autocompute Intensity Bounds: true
+      Autocompute Value Bounds:
+        Max Value: 0.625
+        Min Value: 0.625
+        Value: true
+      Axis: Z
+      Channel Name: y
+      Class: rviz_default_plugins/LaserScan
+      Color: 255; 255; 255
+      Color Transformer: Intensity
+      Decay Time: 0
+      Enabled: true
+      Invert Rainbow: true
+      Max Color: 255; 255; 255
+      Max Intensity: 7.440696716308594
+      Min Color: 0; 0; 0
+      Min Intensity: -10.955321311950684
+      Name: Lidar
+      Position Transformer: XYZ
+      Selectable: true
+      Size (Pixels): 3
+      Size (m): 0.009999999776482582
+      Style: Points
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /lidar
+      Use Fixed Frame: true
+      Use rainbow: true
       Value: true
   Enabled: true
   Global Options:
@@ -421,14 +420,18 @@ Visualization Manager:
       Yaw: 2.845405340194702
     Saved: ~
 Window Geometry:
+  Depth_img:
+    collapsed: false
   Displays:
     collapsed: false
-  Height: 1013
+  Height: 1016
   Hide Left Dock: false
   Hide Right Dock: false
-  Image:
+  Left_img:
     collapsed: false
-  QMainWindow State: 000000ff00000000fd0000000200000000000001c0000002abfc0200000001fb000000100044006900730070006c006100790073010000012d000002ab000000c900ffffff0000000200000690000000eafc0100000003fb0000000a0049006d0061006700650100000000000001120000005e00fffffffb0000000a0049006d0061006700650100000118000004150000005e00fffffffb0000000a0049006d00610067006501000005330000015d0000005e00ffffff000004ca000002ab00000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
-  Width: 1680
-  X: 1920
-  Y: 0
+  QMainWindow State: 000000ff00000000fd0000000200000000000001c0000002aefc0200000001fb000000100044006900730070006c006100790073010000012d000002ae000000c900ffffff0000000200000738000000eafc0100000004fb0000001200440065007000740068005f0069006d006701000000000000025e0000008000fffffffb0000000a0049006d00610067006501000001340000047e0000000000000000fb00000010004c006500660074005f0069006d00670100000264000001cc0000007100fffffffb0000001200520069006700680074005f0069006d00670100000436000003020000007a00ffffff00000572000002ae00000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  Right_img:
+    collapsed: false
+  Width: 1848
+  X: 72
+  Y: 27
