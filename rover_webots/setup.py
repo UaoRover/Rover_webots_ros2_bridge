@@ -18,6 +18,9 @@ data_files.append(('share/' + package_name, [
 data_files.append(('share/' + package_name, [
     'launch/obstaculos_rviz_webots.launch.py'
 ]))
+data_files.append(('share/' + package_name, [
+    'launch/depth_to_pointcloud.launch.py'
+]))
 data_files.append(('share/' + package_name + '/worlds', [
     'worlds/entorno_real.wbt'
 ]))

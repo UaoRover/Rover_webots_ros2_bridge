@@ -143,7 +143,7 @@ class ServiceNodeVelocity(WebotsNode):
     #callback del service
     def sensor_callback(self):
         #Se obtiene la imagen y se la da a la información del mensaje
-
+        stamp=self.get_clock().now().to_msg()
         camera_data_left = self.camera_left.getImage()
         camera_data_right = self.camera_right.getImage()
         camera_data_depth = np.array(self.camera_depth.getRangeImage(), dtype="float32").tobytes()
@@ -151,17 +151,19 @@ class ServiceNodeVelocity(WebotsNode):
 
         #-----------------------------------
         msg_left = Image()
+        msg_left.header.stamp = stamp
         msg_left.height = self.camera_left.getHeight()
         msg_left.width = self.camera_left.getWidth()
         msg_left.is_bigendian = False
         msg_left.step = self.camera_left.getWidth() * 4
-        msg_left.header.frame_id = 'camera_left'
+        msg_left.header.frame_id = 'depth'#camera_left
         msg_left._data = camera_data_left
         msg_left.encoding = 'bgra8'
         #se publica el mensaje
         self.camera_left_publisher.publish(msg_left)
         #-----------------------------------
         msg_right = Image()
+        msg_right.header.stamp = stamp
         msg_right.height = self.camera_right.getHeight()
         msg_right.width = self.camera_right.getWidth()
         msg_right.is_bigendian = False
@@ -172,7 +174,7 @@ class ServiceNodeVelocity(WebotsNode):
         self.camera_right_publisher.publish(msg_right)
         #-----------------------------------
         msg_gps = NavSatFix()
-        msg_gps.header.stamp = self.get_clock().now().to_msg()
+        msg_gps.header.stamp = stamp
         msg_gps.header.frame_id = 'gps'
         msg_gps.latitude = self.gps.getValues()[0]*0.00001
         msg_gps.longitude = self.gps.getValues()[2]*0.00001
@@ -184,7 +186,7 @@ class ServiceNodeVelocity(WebotsNode):
         #----------------------------------------------------------------------------------
         #----------------------------------------------------------------------------------
         msg_imu = Imu()
-        msg_imu.header.stamp = self.get_clock().now().to_msg()
+        msg_imu.header.stamp = stamp
         msg_imu.header.frame_id = 'imu'
         gyro_data = self.gyro.getValues()
         msg_imu.angular_velocity.x = interpolate_lookup_table(gyro_data[0], self.gyro.getLookupTable())
@@ -203,7 +205,7 @@ class ServiceNodeVelocity(WebotsNode):
         #----------------------------------------------------------------------------------
         ranges = self.lidar.getLayerRangeImage(0)
         msg_lidar = LaserScan()
-        msg_lidar.header.stamp = self.get_clock().now().to_msg()
+        msg_lidar.header.stamp = stamp
         msg_lidar.header.frame_id = 'lidar'
         msg_lidar.angle_min = -0.5 * self.lidar.getFov()
         msg_lidar.angle_max = 0.5 *self.lidar.getFov()
@@ -215,14 +217,31 @@ class ServiceNodeVelocity(WebotsNode):
         self.lidar_publisher.publish(msg_lidar)
         #-----------------------------------------------------------------------------------
         msg_detph = CameraInfo()
-        msg_detph.header.stamp = self.get_clock().now().to_msg()
-        msg_detph.header.frame_id = 'detph'
+        msg_detph.header.stamp = stamp
+        msg_detph.header.frame_id = 'depth'
         msg_detph.height = self.camera_depth.getHeight()
         msg_detph.width = self.camera_depth.getWidth()
+        msg_detph.distortion_model = 'plumb_bob'
+        focal_length=self.camera_left.getFocalLength()
+        if focal_length == 0:
+            focal_length = 570.34  # Identical to Orbbec Astra
+        msg_detph.d = [0.0, 0.0, 0.0, 0.0, 0.0]
+        msg_detph.r = [1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0]
+        msg_detph.k = [
+            focal_length, 0.0, self.camera_depth.getWidth() / 2,
+            0.0, focal_length, self.camera_depth.getHeight() / 2,
+            0.0, 0.0, 1.0
+        ]
+        msg_detph.p = [
+            focal_length, 0.0, self.camera_depth.getWidth() / 2, 0.0,
+            0.0, focal_length, self.camera_depth.getHeight() / 2, 0.0,
+            0.0, 0.0, 1.0, 0.0
+        ]
         self.camera_depth_publisher.publish(msg_detph)
-        
+
+
         msg_camdepth = Image()
-        msg_camdepth.header.stamp = self.get_clock().now().to_msg()
+        msg_camdepth.header.stamp = stamp
         msg_camdepth.height = self.camera_depth.getHeight()
         msg_camdepth.width = self.camera_depth.getWidth()
         msg_camdepth.is_bigendian = False
