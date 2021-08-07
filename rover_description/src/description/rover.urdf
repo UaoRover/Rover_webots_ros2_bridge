@@ -84,14 +84,14 @@
   <joint name="depth_joint" type="fixed">
     <parent link="base_link"/>
     <child link="depth"/>
-    <origin xyz="0.405 0.0 ${height+0.095}" rpy="0 0 0"/>
+    <origin xyz="0.405 0.0 ${height+0.095}" rpy="-1.57079632679 0 -1.57079632679"/>
   </joint>
 
 
 
 
 
-    <link name="camera_right">
+  <link name="camera_right">
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
@@ -114,7 +114,7 @@
 
 
 
-    <link name="camera_left">
+  <link name="camera_left">
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
@@ -137,7 +137,7 @@
 
 
 
-    <link name="imu">
+  <link name="imu">
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
@@ -160,7 +160,7 @@
 
 
 
-    <link name="gps">
+  <link name="gps">
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>

@@ -156,7 +156,7 @@ class ServiceNodeVelocity(WebotsNode):
         msg_left.width = self.camera_left.getWidth()
         msg_left.is_bigendian = False
         msg_left.step = self.camera_left.getWidth() * 4
-        msg_left.header.frame_id = 'depth'#camera_left
+        msg_left.header.frame_id = 'depth'#'camera_left'
         msg_left._data = camera_data_left
         msg_left.encoding = 'bgra8'
         #se publica el mensaje

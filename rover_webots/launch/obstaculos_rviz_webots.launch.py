@@ -67,4 +67,23 @@ def generate_launch_description():
         robot_state_publisher_node,
         rviz_node,
         webots,
+        launch_ros.actions.ComposableNodeContainer(
+            name='container',
+            namespace='',
+            package='rclcpp_components',
+            executable='component_container',
+            composable_node_descriptions=[
+                # Driver itself
+                launch_ros.descriptions.ComposableNode(
+                    package='depth_image_proc',
+                    plugin='depth_image_proc::PointCloudXyzrgbNode',
+                    name='point_cloud_xyzrgb_node',
+                    remappings=[('rgb/camera_info', '/depth_info'),
+                                ('rgb/image_rect_color', '/img_left'),
+                                ('depth_registered/image_rect','/img_depth'),
+                                ('points', '/pointcloud')]
+                ),
+            ],
+            output='screen',
+        ),
     ])

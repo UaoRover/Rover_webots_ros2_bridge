@@ -7,9 +7,11 @@ Panels:
         - /Global Options1
         - /Status1
         - /TF1
-        - /Right_img1
+        - /PointCloud21
+        - /PointCloud21/Status1
+        - /PointCloud21/Topic1
       Splitter Ratio: 0.5
-    Tree Height: 547
+    Tree Height: 283
 Visualization Manager:
   Class: ""
   Displays:
@@ -360,9 +362,9 @@ Visualization Manager:
       Enabled: true
       Invert Rainbow: true
       Max Color: 255; 255; 255
-      Max Intensity: 7.440696716308594
+      Max Intensity: 6.453803062438965
       Min Color: 0; 0; 0
-      Min Intensity: -10.955321311950684
+      Min Intensity: -11.015405654907227
       Name: Lidar
       Position Transformer: XYZ
       Selectable: true
@@ -375,6 +377,39 @@ Visualization Manager:
         History Policy: Keep Last
         Reliability Policy: Reliable
         Value: /lidar
+      Use Fixed Frame: true
+      Use rainbow: true
+      Value: true
+    - Alpha: 1
+      Autocompute Intensity Bounds: true
+      Autocompute Value Bounds:
+        Max Value: 24.973806381225586
+        Min Value: -3.242943525314331
+        Value: true
+      Axis: Z
+      Channel Name: intensity
+      Class: rviz_default_plugins/PointCloud2
+      Color: 255; 255; 255
+      Color Transformer: RGB8
+      Decay Time: 0
+      Enabled: true
+      Invert Rainbow: false
+      Max Color: 255; 255; 255
+      Max Intensity: 4096
+      Min Color: 0; 0; 0
+      Min Intensity: 0
+      Name: PointCloud2
+      Position Transformer: XYZ
+      Selectable: true
+      Size (Pixels): 3
+      Size (m): 0.009999999776482582
+      Style: Flat Squares
+      Topic:
+        Depth: 5
+        Durability Policy: System Default
+        History Policy: System Default
+        Reliability Policy: System Default
+        Value: /pointcloud
       Use Fixed Frame: true
       Use rainbow: true
       Value: true
@@ -399,39 +434,39 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 20.5603084564209
+      Distance: 3.9650776386260986
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0
-        Y: 0
-        Z: 0
+        X: -0.011957168579101562
+        Y: 0.29818248748779297
+        Z: 0.588165283203125
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.7703981399536133
+      Pitch: 0.16520282626152039
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 2.845405340194702
+      Yaw: 3.8023321628570557
     Saved: ~
 Window Geometry:
   Depth_img:
     collapsed: false
   Displays:
     collapsed: false
-  Height: 1016
+  Height: 752
   Hide Left Dock: false
   Hide Right Dock: false
   Left_img:
     collapsed: false
-  QMainWindow State: 000000ff00000000fd0000000200000000000001c0000002aefc0200000001fb000000100044006900730070006c006100790073010000012d000002ae000000c900ffffff0000000200000738000000eafc0100000004fb0000001200440065007000740068005f0069006d006701000000000000025e0000008000fffffffb0000000a0049006d00610067006501000001340000047e0000000000000000fb00000010004c006500660074005f0069006d00670100000264000001cc0000007100fffffffb0000001200520069006700680074005f0069006d00670100000436000003020000007a00ffffff00000572000002ae00000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  QMainWindow State: 000000ff00000000fd0000000200000000000001c0000001a6fc0200000001fb000000100044006900730070006c006100790073010000012d000001a6000000c900ffffff000000020000056a000000eafc0100000004fb0000001200440065007000740068005f0069006d00670100000000000001c60000008000fffffffb0000000a0049006d00610067006501000001340000047e0000000000000000fb00000010004c006500660074005f0069006d006701000001cc000001580000007100fffffffb0000001200520069006700680074005f0069006d0067010000032a000002400000007a00ffffff000003a4000001a600000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
   Right_img:
     collapsed: false
-  Width: 1848
-  X: 72
-  Y: 27
+  Width: 1386
+  X: 586
+  Y: 103
