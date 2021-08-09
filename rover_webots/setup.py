@@ -30,7 +30,39 @@ data_files.append(('share/' + package_name + '/worlds/meshes', [
 data_files.append(('share/' + package_name + '/worlds/meshes', [
     'worlds/meshes/rock.obj'
 ]))
-
+data_files.append(('share/' + package_name + '/worlds/pictures', [
+    'worlds/pictures/Poste_1.jpeg'
+]))
+data_files.append(('share/' + package_name + '/worlds/pictures', [
+    'worlds/pictures/Poste_2.jpeg'
+]))
+data_files.append(('share/' + package_name + '/worlds/pictures', [
+    'worlds/pictures/Poste_3.jpeg'
+]))
+data_files.append(('share/' + package_name + '/worlds/pictures', [
+    'worlds/pictures/Poste_4.jpeg'
+]))
+data_files.append(('share/' + package_name + '/worlds/pictures', [
+    'worlds/pictures/Poste_5.jpeg'
+]))
+data_files.append(('share/' + package_name + '/worlds/pictures', [
+    'worlds/pictures/Poste_6.jpeg'
+]))
+data_files.append(('share/' + package_name + '/worlds/pictures', [
+    'worlds/pictures/Poste_7.jpeg'
+]))
+data_files.append(('share/' + package_name + '/worlds/pictures', [
+    'worlds/pictures/Poste_8.jpeg'
+]))
+data_files.append(('share/' + package_name + '/worlds/pictures', [
+    'worlds/pictures/Poste_9.jpeg'
+]))
+data_files.append(('share/' + package_name + '/worlds/pictures', [
+    'worlds/pictures/Poste_10.jpeg'
+]))
+data_files.append(('share/' + package_name + '/worlds/pictures', [
+    'worlds/pictures/Poste_11.jpeg'
+]))
 
 data_files.append(('share/' + package_name, ['package.xml']))
 data_files.append(('share/ament_index/resource_index/packages',['resource/' + package_name]))

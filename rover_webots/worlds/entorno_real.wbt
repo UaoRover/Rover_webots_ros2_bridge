@@ -4,8 +4,8 @@ WorldInfo {
   coordinateSystem "NUE"
 }
 Viewpoint {
-  orientation -0.8383586423812317 0.45606655505794214 0.2985935098127207 0.4709131323521154
-  position 3.648350141100251 6.593534618431033 15.304878707093444
+  orientation -0.7028042048300123 0.7060628172261866 0.08684208544176526 0.41773836918498264
+  position 11.597635341377638 13.7118996619376 38.599812138815686
   follow "solid"
   followType "None"
 }
@@ -1013,7 +1013,7 @@ DEF Poste_1 Solid {
                 }
                 texture ImageTexture {
                   url [
-                    "/home/alejoxbg/ros2_ws/src/Rover_webots_ros2_bridge/rover_webots/worlds/pictures/Poste_1.jpeg"
+                    "pictures/Poste_1.jpeg"
                   ]
                 }
                 textureTransform TextureTransform {
@@ -1076,7 +1076,7 @@ DEF Poste_2 Solid {
                 }
                 texture ImageTexture {
                   url [
-                    "/home/alejoxbg/ros2_ws/src/Rover_webots_ros2_bridge/rover_webots/worlds/pictures/Poste_2.jpeg"
+                    "pictures/Poste_2.jpeg"
                   ]
                 }
                 textureTransform TextureTransform {
@@ -1140,7 +1140,7 @@ DEF Poste_3 Solid {
                 }
                 texture ImageTexture {
                   url [
-                    "/home/alejoxbg/ros2_ws/src/Rover_webots_ros2_bridge/rover_webots/worlds/pictures/Poste_3.jpeg"
+                    "pictures/Poste_3.jpeg"
                   ]
                 }
                 textureTransform TextureTransform {
@@ -1203,7 +1203,7 @@ DEF Poste_4 Solid {
                 }
                 texture ImageTexture {
                   url [
-                    "/home/alejoxbg/ros2_ws/src/Rover_webots_ros2_bridge/rover_webots/worlds/pictures/Poste_4.jpeg"
+                    "pictures/Poste_4.jpeg"
                   ]
                 }
                 textureTransform TextureTransform {
@@ -1266,7 +1266,7 @@ DEF Poste_5 Solid {
                 }
                 texture ImageTexture {
                   url [
-                    "/home/alejoxbg/ros2_ws/src/Rover_webots_ros2_bridge/rover_webots/worlds/pictures/Poste_5.jpeg"
+                    "pictures/Poste_5.jpeg"
                   ]
                 }
                 textureTransform TextureTransform {
@@ -1329,7 +1329,7 @@ DEF Poste_6 Solid {
                 }
                 texture ImageTexture {
                   url [
-                    "/home/alejoxbg/ros2_ws/src/Rover_webots_ros2_bridge/rover_webots/worlds/pictures/Poste_6.jpeg"
+                    "pictures/Poste_6.jpeg"
                   ]
                 }
                 textureTransform TextureTransform {
@@ -1392,7 +1392,7 @@ DEF Poste_7 Solid {
                 }
                 texture ImageTexture {
                   url [
-                    "/home/alejoxbg/ros2_ws/src/Rover_webots_ros2_bridge/rover_webots/worlds/pictures/Poste_7.jpeg"
+                    "pictures/Poste_7.jpeg"
                   ]
                 }
                 textureTransform TextureTransform {
@@ -1455,7 +1455,7 @@ DEF Poste_8 Solid {
                 }
                 texture ImageTexture {
                   url [
-                    "/home/alejoxbg/ros2_ws/src/Rover_webots_ros2_bridge/rover_webots/worlds/pictures/Poste_8.jpeg"
+                    "pictures/Poste_8.jpeg"
                   ]
                 }
                 textureTransform TextureTransform {
@@ -1518,7 +1518,7 @@ DEF Poste_9 Solid {
                 }
                 texture ImageTexture {
                   url [
-                    "/home/alejoxbg/ros2_ws/src/Rover_webots_ros2_bridge/rover_webots/worlds/pictures/Poste_9.jpeg"
+                    "pictures/Poste_9.jpeg"
                   ]
                 }
                 textureTransform TextureTransform {
@@ -1581,7 +1581,7 @@ DEF Poste_10 Solid {
                 }
                 texture ImageTexture {
                   url [
-                    "/home/alejoxbg/ros2_ws/src/Rover_webots_ros2_bridge/rover_webots/worlds/pictures/Poste_10.jpeg"
+                    "pictures/Poste_10.jpeg"
                   ]
                 }
                 textureTransform TextureTransform {
@@ -1644,7 +1644,7 @@ DEF Poste_11 Solid {
                 }
                 texture ImageTexture {
                   url [
-                    "/home/alejoxbg/ros2_ws/src/Rover_webots_ros2_bridge/rover_webots/worlds/pictures/Poste_11.jpeg"
+                    "pictures/Poste_11.jpeg"
                   ]
                 }
                 textureTransform TextureTransform {
@@ -1742,6 +1742,8 @@ DEF Rover Robot {
       maxFrequency 10
     }
     Gyro {
+      translation 0 0.09 0
+      rotation -3.3905013482585576e-09 0.7071062811861719 0.7071072811865696 3.14159
       children [
         Shape {
           appearance PBRAppearance {
@@ -1755,6 +1757,7 @@ DEF Rover Robot {
     }
     Accelerometer {
       translation 0 0.105 0
+      rotation -3.3905013482585576e-09 0.7071062811861719 0.7071072811865696 3.14159
       children [
         Shape {
           appearance PBRAppearance {
@@ -1768,6 +1771,7 @@ DEF Rover Robot {
     }
     InertialUnit {
       translation 0 0.105 0
+      rotation -3.3905013482585576e-09 0.7071062811861719 0.7071072811865696 3.14159
       children [
         DEF imu Shape {
           appearance PBRAppearance {
@@ -1783,6 +1787,7 @@ DEF Rover Robot {
     }
     GPS {
       translation 0.1 0.105 0
+      rotation -3.3905013482585576e-09 0.7071062811861719 0.7071072811865696 3.14159
       children [
         Shape {
           appearance PBRAppearance {

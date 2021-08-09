@@ -177,8 +177,8 @@ class ServiceNodeVelocity(WebotsNode):
         msg_gps.header.stamp = stamp
         msg_gps.header.frame_id = 'gps'
         msg_gps.latitude = self.gps.getValues()[0]*0.00001
-        msg_gps.longitude = self.gps.getValues()[2]*0.00001
-        msg_gps.altitude = self.gps.getValues()[1]
+        msg_gps.longitude = self.gps.getValues()[1]*0.00001
+        msg_gps.altitude = self.gps.getValues()[2]
         msg_gps.position_covariance_type = NavSatFix.COVARIANCE_TYPE_UNKNOWN
         msg_gps.status.service = NavSatStatus.SERVICE_GPS
         msg_gps.status.status = NavSatStatus.STATUS_FIX
