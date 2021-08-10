@@ -35,23 +35,27 @@ class ServiceNodeVelocity(WebotsNode):
 
         # Se define el tiempo de muestreo según la simulación
         self.service_node_vel_timestep = 32*6
+        self.service_node_vel_timestep_imu = 32
 
         # Se crea un ROS2 service que capturará las datos de Webots
         self.sensor_timer = self.create_timer(
             0.001 * self.service_node_vel_timestep, self.sensor_callback)
         
+        self.sensor_timer = self.create_timer(
+            0.001 * self.service_node_vel_timestep_imu, self.imu_callback)
+
         #-------------------------------
         self.camera_left = self.robot.getDevice( 'camera_left')
         self.camera_left.enable(self.service_node_vel_timestep)
-        self.camera_left_publisher = self.create_publisher( Image, 'img_left', 1)
+        self.camera_left_publisher = self.create_publisher( Image, 'img_left', 10)
         
         self.camera_right = self.robot.getDevice('camera_right') 
         self.camera_right.enable(self.service_node_vel_timestep)
-        self.camera_right_publisher = self.create_publisher( Image, 'img_right', 1)
+        self.camera_right_publisher = self.create_publisher( Image, 'img_right', 10)
         
         self.gps = self.robot.getDevice('gps') 
         self.gps.enable(self.service_node_vel_timestep)
-        self.gps_publisher = self.create_publisher( NavSatFix, 'gps', 1)
+        self.gps_publisher = self.create_publisher( NavSatFix, 'gps', 10)
         #-------------------------------
         self.acel = self.robot.getDevice( 'accelerometer')
         self.gyro = self.robot.getDevice('gyro')
@@ -59,16 +63,16 @@ class ServiceNodeVelocity(WebotsNode):
         self.acel.enable(self.service_node_vel_timestep)
         self.gyro.enable(self.service_node_vel_timestep)
         self.iu.enable(self.service_node_vel_timestep)
-        self.imu_publisher = self.create_publisher( Imu, 'imu', 1)
+        self.imu_publisher = self.create_publisher( Imu, 'imu', 10)
         #-------------------------------
         self.lidar = self.robot.getDevice('lidar')
         self.lidar.enable(self.service_node_vel_timestep)
-        self.lidar_publisher = self.create_publisher(LaserScan, 'lidar', 1)
+        self.lidar_publisher = self.create_publisher(LaserScan, 'lidar', 10)
         #-------------------------------
         self.camera_depth = self.robot.getDevice('depth') 
         self.camera_depth.enable(self.service_node_vel_timestep)
-        self.camera_depth_publisher = self.create_publisher( CameraInfo, 'depth_info', 1)
-        self.camdep_publisher = self.create_publisher( Image, 'img_depth', 1)
+        self.camera_depth_publisher = self.create_publisher( CameraInfo, 'depth_info', 10)
+        self.camdep_publisher = self.create_publisher( Image, 'img_depth', 10)
         #-------------------------------
 
         #-------------------------------
@@ -185,23 +189,7 @@ class ServiceNodeVelocity(WebotsNode):
         self.gps_publisher.publish(msg_gps)
         #----------------------------------------------------------------------------------
         #----------------------------------------------------------------------------------
-        msg_imu = Imu()
-        msg_imu.header.stamp = stamp
-        msg_imu.header.frame_id = 'imu'
-        gyro_data = self.gyro.getValues()
-        msg_imu.angular_velocity.x = interpolate_lookup_table(gyro_data[0], self.gyro.getLookupTable())
-        msg_imu.angular_velocity.y = interpolate_lookup_table(gyro_data[1], self.gyro.getLookupTable())
-        msg_imu.angular_velocity.z = interpolate_lookup_table(gyro_data[2], self.gyro.getLookupTable())
-        acel_data =self.acel.getValues()
-        msg_imu.linear_acceleration.x = interpolate_lookup_table(acel_data[0], self.acel.getLookupTable())
-        msg_imu.linear_acceleration.y = interpolate_lookup_table(acel_data[1], self.acel.getLookupTable())
-        msg_imu.linear_acceleration.z = interpolate_lookup_table(acel_data[2], self.acel.getLookupTable())
-        iu_data = self.iu.getQuaternion()
-        msg_imu.orientation.x = iu_data[0]
-        msg_imu.orientation.y = iu_data[1]
-        msg_imu.orientation.z = iu_data[2]
-        msg_imu.orientation.w = iu_data[3]
-        self.imu_publisher.publish(msg_imu)
+
         #----------------------------------------------------------------------------------
         ranges = self.lidar.getLayerRangeImage(0)
         msg_lidar = LaserScan()
@@ -252,6 +240,25 @@ class ServiceNodeVelocity(WebotsNode):
 
         self.camdep_publisher.publish(msg_camdepth)
 
+    def imu_callback(self):
+        stamp=self.get_clock().now().to_msg()
+        msg_imu = Imu()
+        msg_imu.header.stamp = stamp
+        msg_imu.header.frame_id = 'imu'
+        gyro_data = self.gyro.getValues()
+        msg_imu.angular_velocity.x = interpolate_lookup_table(gyro_data[0], self.gyro.getLookupTable())
+        msg_imu.angular_velocity.y = interpolate_lookup_table(gyro_data[1], self.gyro.getLookupTable())
+        msg_imu.angular_velocity.z = interpolate_lookup_table(gyro_data[2], self.gyro.getLookupTable())
+        acel_data =self.acel.getValues()
+        msg_imu.linear_acceleration.x = interpolate_lookup_table(acel_data[0], self.acel.getLookupTable())
+        msg_imu.linear_acceleration.y = interpolate_lookup_table(acel_data[1], self.acel.getLookupTable())
+        msg_imu.linear_acceleration.z = interpolate_lookup_table(acel_data[2], self.acel.getLookupTable())
+        iu_data = self.iu.getQuaternion()
+        msg_imu.orientation.x = iu_data[0]
+        msg_imu.orientation.y = iu_data[1]
+        msg_imu.orientation.z = iu_data[2]
+        msg_imu.orientation.w = iu_data[3]
+        self.imu_publisher.publish(msg_imu)
 
 	
                
