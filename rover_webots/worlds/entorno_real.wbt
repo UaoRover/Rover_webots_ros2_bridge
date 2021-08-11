@@ -5,7 +5,7 @@ WorldInfo {
 }
 Viewpoint {
   orientation -0.7028042048300123 0.7060628172261866 0.08684208544176526 0.41773836918498264
-  position 11.597635341377638 13.7118996619376 38.599812138815686
+  position 5.175370751294846 7.079540761721322 17.70996226402519
   follow "solid"
   followType "None"
 }
@@ -1743,7 +1743,7 @@ DEF Rover Robot {
     }
     Gyro {
       translation 0 0.09 0
-      rotation -3.3905013482585576e-09 0.7071062811861719 0.7071072811865696 3.14159
+      rotation -3.3905013482585576e-09 0.7071062811861719 0.7071072811865696 0
       children [
         Shape {
           appearance PBRAppearance {
@@ -1771,7 +1771,7 @@ DEF Rover Robot {
     }
     InertialUnit {
       translation 0 0.105 0
-      rotation -3.3905013482585576e-09 0.7071062811861719 0.7071072811865696 3.14159
+      rotation -3.3905013482585576e-09 0.7071062811861719 0.7071072811865696 0
       children [
         DEF imu Shape {
           appearance PBRAppearance {
@@ -1786,7 +1786,7 @@ DEF Rover Robot {
     }
     GPS {
       translation 0.1 0.105 0
-      rotation -3.3905013482585576e-09 0.7071062811861719 0.7071072811865696 3.14159
+      rotation -3.3905013482585576e-09 0.7071062811861719 0.7071072811865696 0
       children [
         Shape {
           appearance PBRAppearance {
