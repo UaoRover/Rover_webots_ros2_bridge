@@ -247,16 +247,16 @@ class ServiceNodeVelocity(WebotsNode):
         msg_imu.header.frame_id = 'imu'
         gyro_data = self.gyro.getValues()
         msg_imu.angular_velocity.x = interpolate_lookup_table(gyro_data[0], self.gyro.getLookupTable())
-        msg_imu.angular_velocity.y = interpolate_lookup_table(gyro_data[1], self.gyro.getLookupTable())
-        msg_imu.angular_velocity.z = interpolate_lookup_table(gyro_data[2], self.gyro.getLookupTable())
+        msg_imu.angular_velocity.y = interpolate_lookup_table(gyro_data[2], self.gyro.getLookupTable())
+        msg_imu.angular_velocity.z = interpolate_lookup_table(gyro_data[1], self.gyro.getLookupTable())
         acel_data =self.acel.getValues()
         msg_imu.linear_acceleration.x = interpolate_lookup_table(acel_data[0], self.acel.getLookupTable())
         msg_imu.linear_acceleration.y = interpolate_lookup_table(acel_data[1], self.acel.getLookupTable())
-        msg_imu.linear_acceleration.z = interpolate_lookup_table(acel_data[2], self.acel.getLookupTable())
+        msg_imu.linear_acceleration.z = interpolate_lookup_table(acel_data[2], self.acel.getLookupTable())-9.8
         iu_data = self.iu.getQuaternion()
         msg_imu.orientation.x = iu_data[0]
-        msg_imu.orientation.y = iu_data[1]
-        msg_imu.orientation.z = iu_data[2]
+        msg_imu.orientation.y = iu_data[2]
+        msg_imu.orientation.z = iu_data[1]
         msg_imu.orientation.w = iu_data[3]
         self.imu_publisher.publish(msg_imu)
 

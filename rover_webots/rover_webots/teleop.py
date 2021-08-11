@@ -23,10 +23,11 @@ class Teleop(Node):
         super().__init__('teleop_cmdvel')
 
                 # Publish cmd vel
-        self.pubs_cmdvel = self.create_publisher(Twist, 'cmd_vel', 1)
+        self.pubs_cmdvel = self.create_publisher(Twist, 'cmd_vel', 10)
 
         self.cmd = Twist()
 
+        print("presiona w, a, s, d para moverte, espacio para detenerte")
         while True:
 
             self.cmd.angular.z=0.0
@@ -52,7 +53,9 @@ class Teleop(Node):
                 self.cmd.angular.z=0.0
                 self.cmd.linear.x =0.0
                 self.pubs_cmdvel.publish(self.cmd)
+                rclpy.shutdown()
                 break
+        rclpy.shutdown()
 
 
 
@@ -60,10 +63,10 @@ def main(args=None):
 
     rclpy.init(args=args)
 
-    ls = Teleop()
+    self.ls = Teleop()
     rclpy.spin(ls)
 
-    ls.destroy_node()
+    self.ls.destroy_node()
     rclpy.shutdown()
 
 class _Getch:       
