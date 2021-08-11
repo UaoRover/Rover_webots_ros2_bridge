@@ -8,3 +8,4 @@ sudo apt install ros-foxy-xacro
 rosdep install -i --from-path src --rosdistro foxy -y
 
 sudo apt install ros-foxy-depth_image_proc
+safasnfjasfnlsanfajfljsanlsnfljanlasnajl
