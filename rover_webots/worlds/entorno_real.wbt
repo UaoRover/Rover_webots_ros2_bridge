@@ -1783,7 +1783,6 @@ DEF Rover Robot {
         }
       ]
       name "imu"
-      noise 0.05
     }
     GPS {
       translation 0.1 0.105 0
