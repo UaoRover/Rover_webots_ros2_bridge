@@ -97,9 +97,9 @@ def generate_launch_description():
                 package='depth_image_proc',
                 plugin='depth_image_proc::PointCloudXyzrgbNode',
                 name='point_cloud_xyzrgb_node',
-                remappings=[('rgb/camera_info', '/depth_info'),
-                            ('rgb/image_rect_color', '/img_left'),
-                            ('depth_registered/image_rect','/img_depth'),
+                remappings=[('rgb/camera_info', '/depth/camera_info'),
+                            ('rgb/image_rect_color', '/camera_left/image_raw'),
+                            ('depth_registered/image_rect','/depth/image_raw'),
                             ('points', '/pointcloud')]
             ),
         ],
@@ -113,7 +113,12 @@ def generate_launch_description():
         launch.actions.DeclareLaunchArgument(name='rvizconfig', default_value=default_rviz_config_path,
                                             description='Absolute path to rviz config file'),
         launch.actions.DeclareLaunchArgument('output_final_position',default_value='false'),
-        launch.actions.DeclareLaunchArgument('output_location',default_value='~/dual_ekf_navsat_example_debug.txt'),        
+        launch.actions.DeclareLaunchArgument('output_location',default_value='~/dual_ekf_navsat_example_debug.txt'), 
+        launch_ros.actions.Node(
+            package='tf2_ros',
+            executable='static_transform_publisher',
+            arguments = ['-0.06', '0', '0', '0', '0', '0', 'depth', 'camera_left']
+        ),       
         joint_state_publisher_node,
         joint_state_publisher_gui_node,
         robot_state_publisher_node,

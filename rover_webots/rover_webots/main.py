@@ -47,11 +47,11 @@ class ServiceNodeVelocity(WebotsNode):
         #-------------------------------
         self.camera_left = self.robot.getDevice( 'camera_left')
         self.camera_left.enable(self.service_node_vel_timestep)
-        self.camera_left_publisher = self.create_publisher( Image, 'img_left', 10)
+        self.camera_left_publisher = self.create_publisher( Image, 'camera_left/image_raw', 10)
         
         self.camera_right = self.robot.getDevice('camera_right') 
         self.camera_right.enable(self.service_node_vel_timestep)
-        self.camera_right_publisher = self.create_publisher( Image, 'img_right', 10)
+        self.camera_right_publisher = self.create_publisher( Image, 'camera_rigth/image_raw', 10)
         
         self.gps = self.robot.getDevice('gps') 
         self.gps.enable(self.service_node_vel_timestep)
@@ -71,8 +71,8 @@ class ServiceNodeVelocity(WebotsNode):
         #-------------------------------
         self.camera_depth = self.robot.getDevice('depth') 
         self.camera_depth.enable(self.service_node_vel_timestep)
-        self.camera_depth_publisher = self.create_publisher( CameraInfo, 'depth_info', 10)
-        self.camdep_publisher = self.create_publisher( Image, 'img_depth', 10)
+        self.camera_depth_publisher = self.create_publisher( CameraInfo, 'depth/camera_info', 10)
+        self.camdep_publisher = self.create_publisher( Image, 'depth/image_raw', 10)
         #-------------------------------
 
         #-------------------------------
@@ -204,28 +204,28 @@ class ServiceNodeVelocity(WebotsNode):
         msg_lidar.ranges = ranges
         self.lidar_publisher.publish(msg_lidar)
         #-----------------------------------------------------------------------------------
-        msg_detph = CameraInfo()
-        msg_detph.header.stamp = stamp
-        msg_detph.header.frame_id = 'depth'
-        msg_detph.height = self.camera_depth.getHeight()
-        msg_detph.width = self.camera_depth.getWidth()
-        msg_detph.distortion_model = 'plumb_bob'
+        msg_depth = CameraInfo()
+        msg_depth.header.stamp = stamp
+        msg_depth.header.frame_id = 'depth'
+        msg_depth.height = self.camera_depth.getHeight()
+        msg_depth.width = self.camera_depth.getWidth()
+        msg_depth.distortion_model = 'plumb_bob'
         focal_length=self.camera_left.getFocalLength()
         if focal_length == 0:
             focal_length = 570.34  # Identical to Orbbec Astra
-        msg_detph.d = [0.0, 0.0, 0.0, 0.0, 0.0]
-        msg_detph.r = [1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0]
-        msg_detph.k = [
+        msg_depth.d = [0.0, 0.0, 0.0, 0.0, 0.0]
+        msg_depth.r = [1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0]
+        msg_depth.k = [
             focal_length, 0.0, self.camera_depth.getWidth() / 2,
             0.0, focal_length, self.camera_depth.getHeight() / 2,
             0.0, 0.0, 1.0
         ]
-        msg_detph.p = [
+        msg_depth.p = [
             focal_length, 0.0, self.camera_depth.getWidth() / 2, 0.0,
             0.0, focal_length, self.camera_depth.getHeight() / 2, 0.0,
             0.0, 0.0, 1.0, 0.0
         ]
-        self.camera_depth_publisher.publish(msg_detph)
+        self.camera_depth_publisher.publish(msg_depth)
 
 
         msg_camdepth = Image()
