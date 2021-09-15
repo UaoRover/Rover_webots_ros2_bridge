@@ -1,7 +1,8 @@
-#VRML_SIM R2021a utf8
+#VRML_SIM R2021b utf8
 WorldInfo {
   basicTimeStep 16
   coordinateSystem "NUE"
+  gpsCoordinateSystem "WGS84"
 }
 Viewpoint {
   orientation -0.3497473726220435 0.927943050473053 0.12883505121954347 0.8098713354252105
@@ -1696,7 +1697,7 @@ DEF Rover Robot {
   children [
     RangeFinder {
       translation -0.405 0.095 0
-      rotation 0 1 0 1.5708
+      rotation 0 1 0 1.57079632679
       children [
         Shape {
           appearance PBRAppearance {
@@ -1711,9 +1712,9 @@ DEF Rover Robot {
       fieldOfView 1.5708
       width 1344
       height 376
-      minRange 0.3
+      minRange 0.15
       maxRange 20
-      noise 1
+      noise 0.1
     }
     Lidar {
       translation -0.22 0.125 0
@@ -1771,7 +1772,7 @@ DEF Rover Robot {
     }
     InertialUnit {
       translation 0 0.105 0
-      rotation -3.3905013482585576e-09 0.7071062811861719 0.7071072811865696 0
+      rotation -3.3905013482585576e-09 0.7071062811861719 0.7071072811865696 3.14159
       children [
         DEF imu Shape {
           appearance PBRAppearance {
@@ -1797,12 +1798,10 @@ DEF Rover Robot {
           }
         }
       ]
-      accuracy 1.5
-      speedNoise 0.05
     }
     Camera {
       translation -0.405 0.095 -0.06
-      rotation 0 -1 0 -1.5707996938995747
+      rotation 0 1 0 1.57079632679
       children [
         Shape {
           appearance PBRAppearance {
@@ -1814,7 +1813,7 @@ DEF Rover Robot {
         }
       ]
       name "camera_right"
-      fieldOfView 1.51844
+      fieldOfView 1.5708
       width 1344
       height 376
       near 0.5
@@ -1823,7 +1822,7 @@ DEF Rover Robot {
     }
     Camera {
       translation -0.405 0.095 0.06
-      rotation 0 -1 0 -1.5707996938995747
+      rotation 0 1 0 1.57079632679
       children [
         Shape {
           appearance PBRAppearance {
@@ -1835,7 +1834,7 @@ DEF Rover Robot {
         }
       ]
       name "camera_left"
-      fieldOfView 1.51844
+      fieldOfView 1.5708
       width 1344
       height 376
       near 0.5

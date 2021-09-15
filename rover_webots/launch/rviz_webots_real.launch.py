@@ -3,7 +3,7 @@ from launch.substitutions import Command, LaunchConfiguration
 import launch_ros
 import os
 from launch.substitutions.path_join_substitution import PathJoinSubstitution
-from launch.actions import IncludeLaunchDescription
+from launch.actions import IncludeLaunchDescription, SetEnvironmentVariable
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch import LaunchDescription
 from ament_index_python.packages import get_package_share_directory
@@ -86,6 +86,16 @@ def generate_launch_description():
                     ('odometry/gps', 'odometry/gps'),
                     ('odometry/filtered', 'odometry/global')]           
     )
+    parameters=[{
+          'frame_id':'base_link',
+          'subscribe_depth':True,
+          'approx_sync':True}]
+
+    remappings=[
+          ('rgb/image', '/camera_right/image_raw'),
+          ('rgb/camera_info', '/camera_right/camera_info'),
+          ('depth/image', '/depth/image_raw')]
+
     depth=launch_ros.actions.ComposableNodeContainer(
         name='container',
         namespace='',
@@ -94,12 +104,20 @@ def generate_launch_description():
         composable_node_descriptions=[
             # Driver itself
             launch_ros.descriptions.ComposableNode(
+                    package='depth_image_proc',
+                    plugin='depth_image_proc::ConvertMetricNode',
+                    name='convert_metric_node',
+                    remappings=[('image_raw', '/depth/image_raw'),
+                                ('camera_info', '/depth/camera_info'),
+                                ('image', '/depth/image_rect')]
+            ),
+            launch_ros.descriptions.ComposableNode(
                 package='depth_image_proc',
                 plugin='depth_image_proc::PointCloudXyzrgbNode',
                 name='point_cloud_xyzrgb_node',
                 remappings=[('rgb/camera_info', '/depth/camera_info'),
                             ('rgb/image_rect_color', '/camera_left/image_raw'),
-                            ('depth_registered/image_rect','/depth/image_raw'),
+                            ('depth_registered/image_rect','/depth/image_rect'),
                             ('points', '/pointcloud')]
             ),
         ],
@@ -113,18 +131,26 @@ def generate_launch_description():
         launch.actions.DeclareLaunchArgument(name='rvizconfig', default_value=default_rviz_config_path,
                                             description='Absolute path to rviz config file'),
         launch.actions.DeclareLaunchArgument('output_final_position',default_value='false'),
-        launch.actions.DeclareLaunchArgument('output_location',default_value='~/dual_ekf_navsat_example_debug.txt'), 
-        launch_ros.actions.Node(
-            package='tf2_ros',
-            executable='static_transform_publisher',
-            arguments = ['-0.06', '0', '0', '0', '0', '0', 'depth', 'camera_left']
-        ),       
+        launch.actions.DeclareLaunchArgument('output_location',default_value='~/dual_ekf_navsat_example_debug.txt'),        
+        robot_state_publisher_node,
         joint_state_publisher_node,
         joint_state_publisher_gui_node,
-        robot_state_publisher_node,
+        # Nodes to launch
+        launch_ros.actions.Node(
+            package='rtabmap_ros', executable='rgbd_odometry', output='screen',
+            parameters=parameters,
+            remappings=remappings),
+
+        launch_ros.actions.Node(
+            package='rtabmap_ros', executable='rtabmap', output='screen',
+            parameters=parameters,
+            remappings=remappings,
+            arguments=['-d']),
+
+        launch_ros.actions.Node(
+            package='rtabmap_ros', executable='rtabmapviz', output='screen',
+            parameters=parameters,
+            remappings=remappings),
         rviz_node,
         webots,
-        depth,
-        ekf_local,
-        ekf_global
     ])
