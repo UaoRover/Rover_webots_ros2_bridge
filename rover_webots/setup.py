@@ -66,6 +66,9 @@ data_files.append(('share/' + package_name + '/worlds/pictures', [
 data_files.append(('share/' + package_name + '/worlds/pictures', [
     'worlds/pictures/Poste_11.jpeg'
 ]))
+data_files.append(('share/' + package_name + '/params', [
+    'params/dual_ekf_navsat_example.yaml'
+]))
 
 data_files.append(('share/' + package_name, ['package.xml']))
 data_files.append(('share/ament_index/resource_index/packages',['resource/' + package_name]))

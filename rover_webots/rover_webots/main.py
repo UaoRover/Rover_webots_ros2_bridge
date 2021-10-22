@@ -17,6 +17,7 @@ from webots_ros2_core.webots_node import WebotsNode
 from geometry_msgs.msg import Twist
 from sensor_msgs.msg import Image, CameraInfo
 from sensor_msgs.msg import NavSatFix, NavSatStatus
+from nav_msgs.msg import Odometry
 from rclpy.time import Time
 from rclpy.qos import QoSReliabilityPolicy, qos_profile_sensor_data
 from sensor_msgs.msg import Imu
@@ -47,23 +48,25 @@ class ServiceNodeVelocity(WebotsNode):
         #-------------------------------
         self.camera_left = self.robot.getDevice( 'camera_left')
         self.camera_left.enable(self.service_node_vel_timestep)
-        self.camera_left_publisher = self.create_publisher( Image, 'img_left', 10)
+        self.camera_left_info_publisher = self.create_publisher( CameraInfo, 'camera_left/camera_info', 10)
+        self.camera_left_publisher = self.create_publisher( Image, 'camera_left/image_raw', 10)
         
         self.camera_right = self.robot.getDevice('camera_right') 
         self.camera_right.enable(self.service_node_vel_timestep)
-        self.camera_right_publisher = self.create_publisher( Image, 'img_right', 10)
+        self.camera_right_info_publisher = self.create_publisher( CameraInfo, 'camera_right/camera_info', 10)
+        self.camera_right_publisher = self.create_publisher( Image, 'camera_right/image_raw', 10)
         
         self.gps = self.robot.getDevice('gps') 
         self.gps.enable(self.service_node_vel_timestep)
-        self.gps_publisher = self.create_publisher( NavSatFix, 'gps', 10)
+        self.gps_publisher = self.create_publisher( NavSatFix, 'gps/fix', 10)
         #-------------------------------
-        self.acel = self.robot.getDevice( 'accelerometer')
+        self.acel = self.robot.getDevice('accelerometer')
         self.gyro = self.robot.getDevice('gyro')
-        self.iu = self.robot.getDevice('imu')
-        self.acel.enable(self.service_node_vel_timestep)
-        self.gyro.enable(self.service_node_vel_timestep)
-        self.iu.enable(self.service_node_vel_timestep)
-        self.imu_publisher = self.create_publisher( Imu, 'imu', 10)
+        self.imu = self.robot.getDevice('imu')
+        self.acel.enable(self.service_node_vel_timestep_imu)
+        self.gyro.enable(self.service_node_vel_timestep_imu)
+        self.imu.enable(self.service_node_vel_timestep_imu)
+        self.imu_publisher = self.create_publisher( Imu, 'imu/data', 10)
         #-------------------------------
         self.lidar = self.robot.getDevice('lidar')
         self.lidar.enable(self.service_node_vel_timestep)
@@ -71,8 +74,8 @@ class ServiceNodeVelocity(WebotsNode):
         #-------------------------------
         self.camera_depth = self.robot.getDevice('depth') 
         self.camera_depth.enable(self.service_node_vel_timestep)
-        self.camera_depth_publisher = self.create_publisher( CameraInfo, 'depth_info', 10)
-        self.camdep_publisher = self.create_publisher( Image, 'img_depth', 10)
+        self.camera_depth_publisher = self.create_publisher( CameraInfo, 'depth/camera_info', 10)
+        self.camdep_publisher = self.create_publisher( Image, 'depth/image_raw', 10)
         #-------------------------------
 
         #-------------------------------
@@ -136,7 +139,7 @@ class ServiceNodeVelocity(WebotsNode):
         self.boggie_left_motor.setVelocity(msg.linear.x)
         self.middle_left_motor.setVelocity(msg.linear.x)
         self.rocker_left_motor.setVelocity(msg.linear.x)
-        self.boggie_right_motor.setVelocity(msg.linear.x)
+        self.boggie_right_motor .setVelocity(msg.linear.x)
         self.middle_right_motor.setVelocity(msg.linear.x)
         self.rocker_right_motor.setVelocity(msg.linear.x)
         self.left_boggie_directional_motor.setVelocity(-msg.angular.z)
@@ -154,18 +157,64 @@ class ServiceNodeVelocity(WebotsNode):
 
 
         #-----------------------------------
+        msg_left_info = CameraInfo()
+        msg_left_info.header.stamp = stamp
+        msg_left_info.header.frame_id = 'camera_left'
+        msg_left_info.height = self.camera_left.getHeight()
+        msg_left_info.width = self.camera_left.getWidth()
+        msg_left_info.distortion_model = 'plumb_bob'
+        focal_length=self.camera_left.getFocalLength()
+        if focal_length == 0:
+            focal_length = 570.34  # Identical to Orbbec Astra
+        msg_left_info.d = [0.0, 0.0, 0.0, 0.0, 0.0]
+        msg_left_info.r = [1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0]
+        msg_left_info.k = [
+            focal_length, 0.0, self.camera_left.getWidth() / 2,
+            0.0, focal_length, self.camera_left.getHeight() / 2,
+            0.0, 0.0, 1.0
+        ]
+        msg_left_info.p = [
+            focal_length, 0.0, self.camera_left.getWidth() / 2, 0.0,
+            0.0, focal_length, self.camera_left.getHeight() / 2, 0.0,
+            0.0, 0.0, 1.0, 0.0
+        ]
+        self.camera_left_info_publisher.publish(msg_left_info)
+
         msg_left = Image()
         msg_left.header.stamp = stamp
         msg_left.height = self.camera_left.getHeight()
         msg_left.width = self.camera_left.getWidth()
         msg_left.is_bigendian = False
         msg_left.step = self.camera_left.getWidth() * 4
-        msg_left.header.frame_id = 'depth'#'camera_left'
+        msg_left.header.frame_id = 'camera_left'
         msg_left._data = camera_data_left
         msg_left.encoding = 'bgra8'
         #se publica el mensaje
         self.camera_left_publisher.publish(msg_left)
         #-----------------------------------
+        msg_right_info = CameraInfo()
+        msg_right_info.header.stamp = stamp
+        msg_right_info.header.frame_id = 'camera_right'
+        msg_right_info.height = self.camera_right.getHeight()
+        msg_right_info.width = self.camera_right.getWidth()
+        msg_right_info.distortion_model = 'plumb_bob'
+        focal_length=self.camera_right.getFocalLength()
+        if focal_length == 0:
+            focal_length = 570.34  # Identical to Orbbec Astra
+        msg_right_info.d = [0.0, 0.0, 0.0, 0.0, 0.0]
+        msg_right_info.r = [1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0]
+        msg_right_info.k = [
+            focal_length, 0.0, self.camera_right.getWidth() / 2,
+            0.0, focal_length, self.camera_right.getHeight() / 2,
+            0.0, 0.0, 1.0
+        ]
+        msg_right_info.p = [
+            focal_length, 0.0, self.camera_right.getWidth() / 2, -focal_length*0.06,
+            0.0, focal_length, self.camera_right.getHeight() / 2, 0.0,
+            0.0, 0.0, 1.0, 0.0
+        ]
+        self.camera_right_info_publisher.publish(msg_right_info)
+
         msg_right = Image()
         msg_right.header.stamp = stamp
         msg_right.height = self.camera_right.getHeight()
@@ -180,8 +229,8 @@ class ServiceNodeVelocity(WebotsNode):
         msg_gps = NavSatFix()
         msg_gps.header.stamp = stamp
         msg_gps.header.frame_id = 'gps'
-        msg_gps.latitude = self.gps.getValues()[0]*0.00001
-        msg_gps.longitude = self.gps.getValues()[1]*0.00001
+        msg_gps.latitude = self.gps.getValues()[0]
+        msg_gps.longitude = self.gps.getValues()[1]
         msg_gps.altitude = self.gps.getValues()[2]
         msg_gps.position_covariance_type = NavSatFix.COVARIANCE_TYPE_UNKNOWN
         msg_gps.status.service = NavSatStatus.SERVICE_GPS
@@ -189,7 +238,6 @@ class ServiceNodeVelocity(WebotsNode):
         self.gps_publisher.publish(msg_gps)
         #----------------------------------------------------------------------------------
         #----------------------------------------------------------------------------------
-
         #----------------------------------------------------------------------------------
         ranges = self.lidar.getLayerRangeImage(0)
         msg_lidar = LaserScan()
@@ -204,28 +252,28 @@ class ServiceNodeVelocity(WebotsNode):
         msg_lidar.ranges = ranges
         self.lidar_publisher.publish(msg_lidar)
         #-----------------------------------------------------------------------------------
-        msg_detph = CameraInfo()
-        msg_detph.header.stamp = stamp
-        msg_detph.header.frame_id = 'depth'
-        msg_detph.height = self.camera_depth.getHeight()
-        msg_detph.width = self.camera_depth.getWidth()
-        msg_detph.distortion_model = 'plumb_bob'
-        focal_length=self.camera_left.getFocalLength()
+        msg_depth = CameraInfo()
+        msg_depth.header.stamp = stamp
+        msg_depth.header.frame_id = 'depth'
+        msg_depth.height = self.camera_depth.getHeight()
+        msg_depth.width = self.camera_depth.getWidth()
+        msg_depth.distortion_model = 'plumb_bob'
+        focal_length=self.camera_right.getFocalLength()
         if focal_length == 0:
             focal_length = 570.34  # Identical to Orbbec Astra
-        msg_detph.d = [0.0, 0.0, 0.0, 0.0, 0.0]
-        msg_detph.r = [1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0]
-        msg_detph.k = [
+        msg_depth.d = [0.0, 0.0, 0.0, 0.0, 0.0]
+        msg_depth.r = [1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0]
+        msg_depth.k = [
             focal_length, 0.0, self.camera_depth.getWidth() / 2,
             0.0, focal_length, self.camera_depth.getHeight() / 2,
             0.0, 0.0, 1.0
         ]
-        msg_detph.p = [
+        msg_depth.p = [
             focal_length, 0.0, self.camera_depth.getWidth() / 2, 0.0,
             0.0, focal_length, self.camera_depth.getHeight() / 2, 0.0,
             0.0, 0.0, 1.0, 0.0
         ]
-        self.camera_depth_publisher.publish(msg_detph)
+        self.camera_depth_publisher.publish(msg_depth)
 
 
         msg_camdepth = Image()
@@ -253,11 +301,11 @@ class ServiceNodeVelocity(WebotsNode):
         msg_imu.linear_acceleration.x = interpolate_lookup_table(acel_data[0], self.acel.getLookupTable())
         msg_imu.linear_acceleration.y = interpolate_lookup_table(acel_data[1], self.acel.getLookupTable())
         msg_imu.linear_acceleration.z = interpolate_lookup_table(acel_data[2], self.acel.getLookupTable())
-        iu_data = self.iu.getQuaternion()
-        msg_imu.orientation.x = iu_data[0]
-        msg_imu.orientation.y = iu_data[1]
-        msg_imu.orientation.z = iu_data[2]
-        msg_imu.orientation.w = iu_data[3]
+        imu_data = self.imu.getQuaternion()
+        msg_imu.orientation.x = imu_data[0]
+        msg_imu.orientation.y = imu_data[1]
+        msg_imu.orientation.z = imu_data[2]
+        msg_imu.orientation.w = imu_data[3]
         self.imu_publisher.publish(msg_imu)
 
 	

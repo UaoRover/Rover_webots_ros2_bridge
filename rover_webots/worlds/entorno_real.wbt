@@ -1,11 +1,12 @@
-#VRML_SIM R2021a utf8
+#VRML_SIM R2021b utf8
 WorldInfo {
   basicTimeStep 16
   coordinateSystem "NUE"
+  gpsCoordinateSystem "WGS84"
 }
 Viewpoint {
-  orientation -0.7028042048300123 0.7060628172261866 0.08684208544176526 0.41773836918498264
-  position 11.597635341377638 13.7118996619376 38.599812138815686
+  orientation -0.3497473726220435 0.927943050473053 0.12883505121954347 0.8098713354252105
+  position 1.057867642363949 0.5883547423210789 1.4513702694775046
   follow "solid"
   followType "None"
 }
@@ -1696,7 +1697,7 @@ DEF Rover Robot {
   children [
     RangeFinder {
       translation -0.405 0.095 0
-      rotation 0 1 0 1.5708
+      rotation 0 1 0 1.57079632679
       children [
         Shape {
           appearance PBRAppearance {
@@ -1711,9 +1712,9 @@ DEF Rover Robot {
       fieldOfView 1.5708
       width 1344
       height 376
-      minRange 0.3
+      minRange 0.15
       maxRange 20
-      noise 1
+      noise 0.1
     }
     Lidar {
       translation -0.22 0.125 0
@@ -1742,7 +1743,7 @@ DEF Rover Robot {
       maxFrequency 10
     }
     Gyro {
-      translation 0 0.09 0
+      translation 1.87158e-08 0.1 1.41422e-08
       rotation -3.3905013482585576e-09 0.7071062811861719 0.7071072811865696 3.14159
       children [
         Shape {
@@ -1783,11 +1784,10 @@ DEF Rover Robot {
         }
       ]
       name "imu"
-      noise 0.05
     }
     GPS {
       translation 0.1 0.105 0
-      rotation -3.3905013482585576e-09 0.7071062811861719 0.7071072811865696 3.14159
+      rotation -3.3905013482585576e-09 0.7071062811861719 0.7071072811865696 0
       children [
         Shape {
           appearance PBRAppearance {
@@ -1798,12 +1798,10 @@ DEF Rover Robot {
           }
         }
       ]
-      accuracy 1.5
-      speedNoise 0.05
     }
     Camera {
       translation -0.405 0.095 -0.06
-      rotation 0 -1 0 -1.5707996938995747
+      rotation 0 1 0 1.57079632679
       children [
         Shape {
           appearance PBRAppearance {
@@ -1815,7 +1813,7 @@ DEF Rover Robot {
         }
       ]
       name "camera_right"
-      fieldOfView 1.51844
+      fieldOfView 1.5708
       width 1344
       height 376
       near 0.5
@@ -1824,7 +1822,7 @@ DEF Rover Robot {
     }
     Camera {
       translation -0.405 0.095 0.06
-      rotation 0 -1 0 -1.5707996938995747
+      rotation 0 1 0 1.57079632679
       children [
         Shape {
           appearance PBRAppearance {
@@ -1836,7 +1834,7 @@ DEF Rover Robot {
         }
       ]
       name "camera_left"
-      fieldOfView 1.51844
+      fieldOfView 1.5708
       width 1344
       height 376
       near 0.5
