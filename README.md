@@ -21,4 +21,6 @@ sudo apt install ros-foxy-depth-image-proc
 sudo apt install ros-foxy-robot-localization
 
 
+sudo apt install ros-foxy-depth_image_proc
+
 ros2 launch rover_webots rviz_webots_real.launch.py
